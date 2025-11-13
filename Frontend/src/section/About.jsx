@@ -1,15 +1,19 @@
+
 import { useNavigate } from "react-router-dom";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Shadow } from "@react-three/drei";
 import { Backpack } from "../components/Backpack";
 import { Boots } from "../components/Boots";
-
 import { Button } from "../components/Button";
 import { easing } from "maath";
 import Globe from "../components/Globe";
 
 const About = () => {
+
+
   const navigate = useNavigate();
+
+  
   return (
     <section className="c-space section-spacing">
       <h2 className="text-heading">About Us</h2>
