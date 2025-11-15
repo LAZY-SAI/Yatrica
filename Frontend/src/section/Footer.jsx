@@ -42,13 +42,13 @@ const Footer = () => {
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-500">
           {["Privacy Policy", "Terms of Service", "Contact Us", "About"].map(
             (item) => (
-              <Link
+              <span
                 key={item}
                 to={`/${item.toLowerCase().replace(" ", "-")}`}
                 className="hover:text-blue-400 transition-colors hover:underline"
               >
                 {item}
-              </Link>
+              </span>
             )
           )}
         </div>

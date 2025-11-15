@@ -1,44 +1,50 @@
+import { useEffect,useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const Popular = () => {
-  const popularItems = [
-    { id: 1, name: "Annapurna", image: "image1.jpg" },
-    { id: 2, name: "Mardi", image: "image2.jpg" },
-    { id: 3, name: "Lumbini", image: "image3.jpg" },
-    { id: 4, name: "Everest", image: "image4.jpg" },
-    // { id: 5, name: "Langtang", image: "image5.jpg" },
-    // { id: 6, name: "Rara", image: "image6.jpg" },
-
-  ];
-
+  const [popularItems, setPopularItems]=useState([]) 
+  useEffect(()=>{
+    
+      fetch('/api/popular.json')
+      .then((res) => res.json())
+      .then((data) => setPopularItems(data))
+      .catch((err) => console.error(err))
+    
+  },[])
   return (
-    <section className="c-space section-spacing">
-      <div className="relative flex items-center justify-between">
-        <h2 className="text-heading">Popular Ones</h2>
-        <button className="flex items-center gap-2 text-sm font-medium text-white hover:text-blue-600 transition">
-          View All <FaArrowRight />
-        </button>
-      </div>
+     <section className="flex-1 mt-6 px-4 max-w-7xl mx-auto w-full">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="font-bold text-xl text-white">Featured destinations</h2>
+           <span className="text-white text-sm cursor-pointer flex items-center gap-3 hover:text-blue-300">
+  See all <FaArrowRight />
+</span>3
 
-      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {popularItems.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden shadow-md hover:scale-105 transition-transform duration-300"
-          >
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-48 object-cover"
-            />
-            <h3 className="text-center text-lg font-semibold mt-3 mb-4">
-              {item.name}
-            </h3>
           </div>
-        ))}
-      </div>
-    </section>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            
+            {popularItems.slice(0, 6).map((item) => ( 
+              <div
+                key={item.id}
+            
+                className="relative rounded-2xl overflow-hidden shadow-xl cursor-pointer hover:scale-[1.03] transition-transform duration-300 group aspect-[4/3] sm:aspect-[3/2] md:aspect-[4/3] lg:aspect-[3/2]"
+              >
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                />
+             
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
+                    <h3 className="text-white text-lg font-semibold">{item.name}</h3>
+                   
+                   
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
   );
 };
 
-export default Popular;
+export default Popular

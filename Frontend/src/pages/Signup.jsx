@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 const InputField = ({ type, placeholder, value, onChange, icon }) => (
     <div className="relative w-full max-w-xs">
       <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -16,6 +17,7 @@ const InputField = ({ type, placeholder, value, onChange, icon }) => (
   );
 
 const Signup = () => {
+  const  navigate = useNavigate()
   const [loggedIn, setLoggedIn] = useState(false);
 
   // Login State
@@ -31,12 +33,15 @@ const Signup = () => {
   const [imageSide, setImageSide] = useState("right");
   const imgRef = useRef(null);
 
+  const [interactionDisable, setIntercationDisable ] = useState(false)
+
   const handleSlide = (targetSide) => {
     if (imgRef.current) {
       imgRef.current.classList.remove("slide-left", "slide-right");
 
       void imgRef.current.offsetWidth;
     }
+    setIntercationDisable(true)
 
     if (targetSide === "left") {
       setSlideDirection("slide-left");
@@ -46,7 +51,9 @@ const Signup = () => {
       setImageSide("right");
     }
 
-    setTimeout(() => setSlideDirection(null), 750);
+    setTimeout(() => {setSlideDirection(null)
+      setIntercationDisable(false)
+    }, 750);
   };
 
   const handleLogin = (e) => {
@@ -86,13 +93,13 @@ const Signup = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 font-sans">
-      <div className="w-[54rem] h-[44rem] bg-white rounded-3xl shadow-2xl grid grid-cols-2 relative overflow-hidden">
+      <div className={`w-[54rem] h-[44rem] bg-white rounded-3xl shadow-2xl grid grid-cols-2 relative overflow-hidden ${interactionDisable ? "pointer-events-none":""}`}>
         {/* LEFT PANEL ) */}
         <div
           className={`flex flex-col justify-center items-center p-12 transition-colors duration-700 ${
             imageSide === "left"
               ? "text-white bg-indigo-600"
-              : "text-gray-800 bg-white"
+              : "text-gray-800 bg-white  "
           }`}
         >
           {imageSide === "left" ? (
@@ -136,7 +143,7 @@ const Signup = () => {
                 <button
                   type="submit"
                   className="w-full max-w-xs px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-indigo-700 mt-4"
-                >
+                onClick={() => navigate("/userdash")}>
                   Log In
                 </button>
               </form>
@@ -214,6 +221,12 @@ const Signup = () => {
                   Sign Up
                 </button>
               </form>
+               <button
+                  type="submit"
+                  className="w-full max-w-xs px-8 py-3 bg-cyan-800 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-cyan-700 mt-4"
+                >
+                 Continue as Guest
+                </button>
               <p className="text-gray-600 mb-4">Already have an account?</p>
               <button
                 className="px-6 py-2 border border-indigo-600 text-indigo-600 font-semibold rounded-full hover:bg-indigo-50/20 transition duration-300"
