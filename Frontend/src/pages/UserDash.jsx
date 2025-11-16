@@ -1,15 +1,15 @@
-import Nav from "../section/Nav";
+
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-import { FaHeart, FaEye, FaCommentDots } from "react-icons/fa";
+import { FaHeart} from "react-icons/fa";
 
 const UserDash = () => {
   const [tag, setTag] = useState([]);
   const [active, setActive] = useState("Popular"); 
   const [popularItems, setPopularItems] = useState([]);
   const [posts, setPosts] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   
   const planButtons = [
     { name: "Explore", active: true },
@@ -30,7 +30,10 @@ const UserDash = () => {
         setPosts(data3);
       })
       .catch((err) => console.error(err));
-  }, []);
+   
+  setTimeout(()=> {
+    setIsLoading(false);
+  },500)},[]);
 
   return (
     <>
@@ -112,6 +115,8 @@ const UserDash = () => {
             <h2 className="font-bold text-xl text-white">Featured destinations</h2>
             <span className="text-emerald-500 text-sm cursor-pointer hover:text-emerald-400">See all</span>
           </div>
+          {isLoading ?(<div className="text-center text-gray-500 py-10">Loading options...</div>
+          ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             
             {popularItems.slice(0, 6).map((item) => ( 
@@ -137,6 +142,7 @@ const UserDash = () => {
               </div>
             ))}
           </div>
+          )}
         </section>
 
         {/* Community posts section */}
@@ -147,13 +153,14 @@ const UserDash = () => {
           </div>
           
        
-          <div className="mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+          {isLoading ?(<div className="text-center text-gray-500 py-10">Loading options...</div>)
+          :(<div className="mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 ">
             {posts.map((post) => (
              
               <div
                 key={post.id}
                 
-                className="flex rounded-xl overflow-hidden shadow-md cursor-pointer bg-[#071F22] hover:scale-[1.02] transition-transform duration-150"
+                className="flex rounded-xl overflow-hidden shadow-md cursor-pointer bg-[#192c3b89]  hover:scale-[1.02] transition-transform duration-150 "
               >
             
                 <img
@@ -184,17 +191,11 @@ const UserDash = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div>)}
         </section>
       </div>
 
-      {/* Bottom Nav */}
 
-      <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center p-4"> 
-        <div className="w-full max-w-7xl">
-            <Nav />
-        </div>
-      </div>
     </>
   );
 };

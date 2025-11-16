@@ -17,7 +17,7 @@ const Popular = () => {
             <h2 className="font-bold text-xl text-white">Featured destinations</h2>
            <span className="text-white text-sm cursor-pointer flex items-center gap-3 hover:text-blue-300">
   See all <FaArrowRight />
-</span>3
+</span>
 
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">

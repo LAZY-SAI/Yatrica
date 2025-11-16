@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Create Trip",
+    "icon": "map"
+  },
+  {
+    "id": 2,
+    "name": "Plan with AI",
+    "icon": "brain"
+  },
+  {
+    "id": 3,
+    "name": "View Tour Packages",
+    "icon": "suitcase"
+  }
+]
