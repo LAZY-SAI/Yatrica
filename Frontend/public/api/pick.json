@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "Chitwan Safari",
+    "image": "assets/img/chitwan.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Pokhara",
+    "image": "assets/img/pokhara.jpg"
+  }
+]

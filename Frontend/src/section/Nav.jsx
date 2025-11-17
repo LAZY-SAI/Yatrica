@@ -1,4 +1,6 @@
-import { FaHome, FaCompass, FaLeaf, FaPlusSquare, FaUser } from "react-icons/fa";
+import { FaHome, FaCompass, FaPlusSquare, FaUser } from "react-icons/fa";
+import { LuSlidersHorizontal } from "react-icons/lu";
+
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -8,13 +10,13 @@ const Nav = () => {
   const menu = [
     { name: "Home", logo: <FaHome />, Link: "/userdash" },
     { name: "Discover", logo: <FaCompass />, Link: "/discover" },
-    { name: "Plan", logo: <FaLeaf />, Link: "/plan" },
+    { name: "Plan", logo: <LuSlidersHorizontal />, Link: "/plan" },
     { name: "Posts", logo: <FaPlusSquare />, Link: "/posts" },
     { name: "Profile", logo: <FaUser />, Link: "/profile" },
   ];
 
   return (
-    <div className="w-full rounded-xl shadow-2xl flex items-center bg-[#192c3b89]  py-1">
+    <div className="w-full rounded-xl shadow-2xl flex items-center bg-[#0d1216f0]  py-1">
       <div className="flex flex-row justify-around w-full">
         {menu.map((item) => (
           <Link

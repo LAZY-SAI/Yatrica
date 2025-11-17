@@ -22,7 +22,7 @@ const UserDash = () => {
     Promise.all([
       fetch("/api/types.json").then((res) => res.json()),
       fetch("/api/popular.json").then((res) => res.json()),
-      fetch("api/post.json").then((res) => res.json()),
+      fetch("/api/post.json").then((res) => res.json()),
     ])
       .then(([data1, data2, data3]) => {
         setTag(data1);
@@ -69,7 +69,7 @@ const UserDash = () => {
           </header>
 
           {/* Tag Section  */}
-          <div className="flex overflow-x-auto gap-3 px-4 py-3 pb-4 max-w-7xl mx-auto whitespace-nowrap scrollbar-hide">
+          <div className="flex overflow-x-auto gap-3 px-4 py-3 pb-4 max-w-7xl mx-auto whitespace-nowrap scrollbar-hide overflow-hidden">
             {tag.map((item) => (
               <span
                 key={item.id}
