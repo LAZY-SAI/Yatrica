@@ -24,6 +24,7 @@ body {
   color: white;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  cursor: pointer;
 }
 
 .font-custom {

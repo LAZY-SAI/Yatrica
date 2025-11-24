@@ -27,7 +27,7 @@ const Parallax = () => {
 
         {/* Mountain */}
         <img
-          src="/assets/mountains.png"
+          src="/assets/webp/mountains.webp"
           alt="Mountains"
           className="absolute inset-0 w-full h-full object-cover -z-40"
           draggable="false"

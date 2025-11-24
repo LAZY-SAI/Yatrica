@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Nav = () => {
-  const [active, setActive] = useState("Home");
+  const [active, setActive] = useState();
 
   const menu = [
     { name: "Home", logo: <FaHome />, Link: "/userdash" },

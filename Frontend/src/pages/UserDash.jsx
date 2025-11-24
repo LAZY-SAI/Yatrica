@@ -1,8 +1,8 @@
 
-import { FaSearch } from "react-icons/fa";
+import { FaSearch , FaHeart} from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-import { FaHeart} from "react-icons/fa";
+
 
 const UserDash = () => {
   const [tag, setTag] = useState([]);
@@ -45,7 +45,7 @@ const UserDash = () => {
             {/* Logo  */}
             <span className="text-xl font-bold text-white mr-4">TourBook</span>
 
-            {/* 2. Search Input  */}
+            {/*  Search Input  */}
             <div
               className="flex items-center flex-grow px-4 py-2 rounded-xl"
               style={{ backgroundColor: "#0C302C" }}
@@ -64,7 +64,7 @@ const UserDash = () => {
                 <span>Plan</span>
                 <span>Posts</span>
             </div>
-            {/* Profile image placeholder */}
+            {/* Profile */}
             <div className="w-8 h-8 rounded-full bg-gray-600 ml-4 cursor-pointer"></div>
           </header>
 

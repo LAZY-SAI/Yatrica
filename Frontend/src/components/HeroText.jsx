@@ -23,7 +23,7 @@ const HeroText = () => {
             ? "text-3xl sm:text-2xl" 
             : "text-6xl md:text-6xl lg:text-8xl"
         }`}>
-          A V E N T O R
+         Y A T R I C A
         </h1>
 
         {/* Subtitle and flipping words */}

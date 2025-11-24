@@ -7,8 +7,10 @@ import Signup from "./pages/Signup";
 import Footer from "./section/Footer";
 import Userdash from "./pages/UserDash";
 import Plan from "./pages/Plan";
-import Nav from "./section/Nav";
+import Nav from "./components/Nav";
 import Discover from "./pages/Discover"
+import Post from './pages/Post'
+import Profile from './pages/Profile'
 const App = () => {
   const location = useLocation();
 
@@ -20,7 +22,7 @@ const App = () => {
 
   return (
     <>
-      <div className="container mx-auto max-w-7xl mb-32">
+      <div className="container mx-auto max-w-8xl mb-32">
         <Routes>
           <Route
             path="/"
@@ -38,6 +40,8 @@ const App = () => {
           <Route path="/userdash" element={<Userdash />} />
           <Route path="/discover" element={<Discover/>}/>
           <Route path="/plan" element={<Plan />} />
+          <Route path="/posts" element={<Post/>}/>
+          <Route path="/profile" element ={<Profile/>}/>
         </Routes>
       </div>
 
