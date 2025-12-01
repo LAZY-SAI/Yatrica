@@ -54,7 +54,7 @@ const ProflleNav = () => {
 
   return (
 
-    <nav className="min-h-screen p-4  text-white w-64 md:w-72 shadow-lg">
+    <nav className="min-h-screen p-4  text-white w-64 md:w-72  shadow-lg">
       
     
       {Object.entries(groups).map(([category, items]) => (

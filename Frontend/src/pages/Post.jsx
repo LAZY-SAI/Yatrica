@@ -36,7 +36,7 @@ const Post = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screentext-white">
+    <div className="flex flex-col min-h-screen text-white">
       {/* Header */}
       <div className="w-full  border-b border-gray-800 py-4">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">

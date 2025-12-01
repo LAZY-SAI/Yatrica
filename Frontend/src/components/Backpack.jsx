@@ -5,7 +5,7 @@ export function Backpack(props) {
   const { nodes, materials } = useGLTF('/models/backpack.glb')
   return (
     <group {...props} dispose={null} scale={0.025}
-    rotation={[-Math.PI/28, -0.8, 0.3]}>
+    rotation={[-Math.PI/18, -0.88, 0.4]}>
       <mesh
         castShadow
         receiveShadow

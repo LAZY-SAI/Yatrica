@@ -11,10 +11,11 @@ import Nav from "./components/Nav";
 import Discover from "./pages/Discover"
 import Post from './pages/Post'
 import Profile from './pages/Profile'
+import AdminDash from './pages/AdminDash'
 const App = () => {
   const location = useLocation();
 
-  const hideFooterRoutes = ["/signup", "/userdash", "/plan", "/profile", "/posts","/discover",];
+  const hideFooterRoutes = ["/signup", "/userdash", "/plan", "/profile", "/posts","/discover","/admindash"];
   const showNavRoutes = ["/userdash", "/plan", "/profile", "/posts", "/discover"];
 
   const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/plan" element={<Plan />} />
           <Route path="/posts" element={<Post/>}/>
           <Route path="/profile" element ={<Profile/>}/>
+          <Route path="/admindash" element={<AdminDash/>}/>
         </Routes>
       </div>
 

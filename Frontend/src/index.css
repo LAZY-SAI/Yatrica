@@ -33,7 +33,7 @@ body {
   font-style: normal;
 }
 .c-space {
-  @apply sm:px-10 px-5 lg:px-15;
+  @apply sm:px-10 px-5 lg:px-30;
 }
 
 .hover-animation {

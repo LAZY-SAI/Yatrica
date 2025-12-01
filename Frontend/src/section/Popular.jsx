@@ -14,7 +14,7 @@ const Popular = () => {
   return (
      <section className="flex-1 mt-6 px-4 max-w-7xl mx-auto w-full">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="font-bold text-xl text-white">Featured destinations</h2>
+            <h2 className="font-bold text-xl text-white headtext">Featured destinations</h2>
            <span className="text-white text-sm cursor-pointer flex items-center gap-3 hover:text-blue-300">
   See all <FaArrowRight />
 </span>

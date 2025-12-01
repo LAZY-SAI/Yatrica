@@ -1,7 +1,9 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-const InputField = ({ type, placeholder, value, onChange, icon }) => (
-    <div className="relative w-full max-w-xs">
+
+
+const InputField = ({ type, placeholder, value, onChange, icon, name, error }) => (
+    <div className="relative w-full max-w-xs h-16"> 
       <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
         {icon}
       </span>
@@ -11,8 +13,15 @@ const InputField = ({ type, placeholder, value, onChange, icon }) => (
         required
         value={value}
         onChange={onChange}
+        name={name}
         className="w-full pl-10 pr-4 py-3 border-b border-gray-300 focus:ring-0 focus:border-indigo-600 outline-none text-gray-700 transition duration-200 text-base"
       />
+    
+      {error && (
+        <p className="text-red-500 text-sm mt-1 text-left absolute w-full top-full">
+            {error}
+        </p>
+      )}
     </div>
   );
 
@@ -34,6 +43,7 @@ const Signup = () => {
   const imgRef = useRef(null);
 
   const [interactionDisable, setIntercationDisable ] = useState(false)
+  const [errors, setErrors] = useState({})
 
   const handleSlide = (targetSide) => {
     if (imgRef.current) {
@@ -51,31 +61,73 @@ const Signup = () => {
       setImageSide("right");
     }
 
-    setTimeout(() => {setSlideDirection(null)
+    setTimeout(() => {
+      setSlideDirection(null)
       setIntercationDisable(false)
+      setErrors({});
     }, 750);
   };
 
+  const validateForm = (isLogin) => {
+    const newErrors = {};
+
+   const emailRegex = /^[^\s@]+@(?:gmail)\.com$/;
+
+    if (isLogin) {
+      // LOGIN VALIDATION
+      if (!email.trim()) {
+        newErrors.email = 'Email cannot be empty.';
+      } else if (!emailRegex.test(email)) {
+        newErrors.email = "Invalid Email format.";
+      }
+
+      if (!password.trim()) {
+        newErrors.password = 'Password cannot be empty.';
+      }
+    } else {
+      // SIGNUP VALIDATION
+      if (!username.trim()) {
+        newErrors.username = 'Username cannot be empty.';
+      }
+
+      if (!signupEmail.trim()) {
+        newErrors.signupEmail = 'Email cannot be empty.';
+      } else if (!emailRegex.test(signupEmail)) {
+        newErrors.signupEmail = "Invalid Email format.";
+      }
+
+      if (!signupPassword.trim()) {
+        newErrors.signupPassword = 'Password cannot be empty.';
+      } else if (signupPassword.length < 6) {
+        newErrors.signupPassword = 'Password must be at least 6 characters.';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+  
   const handleLogin = (e) => {
     e.preventDefault();
-    if (email && password) {
+    navigate('/userdash')
+    if (validateForm(true)) {
       console.log("Logging in with:", email, password);
+      // setLoggedIn(true);
     }
   };
 
   const handleSignup = (e) => {
+    navigate('/admindash')
     e.preventDefault();
-    if (username && signupEmail && signupPassword) {
+    if (validateForm(false)) {
       console.log("Signing up with:", username, signupEmail, signupPassword);
     }
   };
 
-  
-
   if (loggedIn) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-indigo-500 font-sans">
-        <div className="p-12 bg-white rounded-3xl shadow-2xl text-center">
+      <div className="flex justify-center items-center min-h-screen bg-indigo-500 font-sans ">
+        <div className="p-12 bg-white h-screen rounded-3xl shadow-2xl text-center">
           <h1 className="text-4xl font-extrabold text-indigo-600">
             Successfully Logged In!
           </h1>
@@ -92,9 +144,9 @@ const Signup = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 font-sans">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 font-sans z-50">
       <div className={`w-[54rem] h-[44rem] bg-white rounded-3xl shadow-2xl grid grid-cols-2 relative overflow-hidden ${interactionDisable ? "pointer-events-none":""}`}>
-        {/* LEFT PANEL ) */}
+        {/* LEFT PANEL  */}
         <div
           className={`flex flex-col justify-center items-center p-12 transition-colors duration-700 ${
             imageSide === "left"
@@ -103,7 +155,8 @@ const Signup = () => {
           }`}
         >
           {imageSide === "left" ? (
-            // PROMO CONTENT 
+         
+          
             <>
               <h2 className="text-4xl font-extrabold mb-4">New Here?</h2>
               <p className="mb-10 text-center text-lg text-indigo-200">
@@ -129,25 +182,30 @@ const Signup = () => {
                 <InputField
                   type="email"
                   placeholder="Email Address"
+                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   icon="📧"
+                  error={errors.email}
                 />
                 <InputField
                   type="password"
                   placeholder="Password"
+                  name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   icon="🔒"
+                  error={errors.password}
                 />
                 <button
                   type="submit"
                   className="w-full max-w-xs px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-indigo-700 mt-4"
-                onClick={() => navigate("/userdash")}>
+                  onClick={handleLogin}
+                > 
                   Log In
                 </button>
               </form>
-              <a  className="ml-40">  Forgot password?</a>
+              <a href="#" className="mb-4 text-sm text-indigo-600 hover:text-indigo-700 transition duration-300">Forgot password?</a>
               <p className="text-gray-600 mb-4">Don't have an account?</p>
               <button
                 className="px-6 py-2 border border-indigo-600 text-indigo-600 font-semibold rounded-full hover:bg-indigo-50/20 transition duration-300"
@@ -159,7 +217,7 @@ const Signup = () => {
           )}
         </div>
 
-        {/* RIGHT PANEL (SIGNUP CONTENT) */}
+        {/* RIGHT PANEL  */}
         <div
           className={`flex flex-col justify-center items-center p-12 transition-colors duration-700 ${
             imageSide === "right"
@@ -168,7 +226,7 @@ const Signup = () => {
           }`}
         >
           {imageSide === "right" ? (
-            // PROMO CONTENT 
+           
             <>
               <h2 className="text-4xl font-extrabold mb-4">
                 Already a Member?
@@ -196,38 +254,45 @@ const Signup = () => {
                 <InputField
                   type="text"
                   placeholder="Username"
+                  name="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   icon="👤"
+                  error={errors.username}
                 />
                 <InputField
                   type="email"
                   placeholder="Email Address"
+                  name="signupEmail"
                   value={signupEmail}
                   onChange={(e) => setSignupEmail(e.target.value)}
                   icon="📧"
+                  error={errors.signupEmail}
                 />
                 <InputField
                   type="password"
                   placeholder="Password"
+                  name="signupPassword"
                   value={signupPassword}
                   onChange={(e) => setSignupPassword(e.target.value)}
                   icon="🔒"
+                  error={errors.signupPassword}
                 />
                 <button
                   type="submit"
                   className="w-full max-w-xs px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-indigo-700 mt-4"
-                >
+                onClick={()=> navigate("/admindash")}>
                   Sign Up
                 </button>
               </form>
                <button
-                  type="submit"
+                  type="button"
                   className="w-full max-w-xs px-8 py-3 bg-cyan-800 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-cyan-700 mt-4"
+                  onClick={() => navigate("/userdash")}
                 >
                  Continue as Guest
                 </button>
-              <p className="text-gray-600 mb-4">Already have an account?</p>
+              <p className="text-gray-600 mb-4 mt-8">Already have an account?</p>
               <button
                 className="px-6 py-2 border border-indigo-600 text-indigo-600 font-semibold rounded-full hover:bg-indigo-50/20 transition duration-300"
                 onClick={() => handleSlide("right")}
@@ -238,6 +303,7 @@ const Signup = () => {
           )}
         </div>
 
+        {/* SLIDING PANEL */}
         <div className="absolute inset-0 z-50 flex items-center pointer-events-none">
           <span
             ref={imgRef}
