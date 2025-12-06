@@ -1,0 +1,6 @@
+[
+    { "id": 101, "title": "Special Discount Code", "message": "Use code SUMMER20 for 20% off all bookings this week.", "time": "2 hours ago" },
+    { "id": 102, "title": "System Maintenance Notice", "message": "Scheduled downtime on Saturday at 2 AM UTC for 30 minutes.", "time": "1 day ago" },
+    { "id": 103, "title": "New Feature Alert", "message": "Introducing real-time currency conversion for all global transactions. Check it out now!","time": "3 days ago" },
+    { "id": 104, "title": "Holiday Travel Update", "message": "High demand is expected next month. Please book seats early to avoid missing out.", "time": "1 week ago" }
+]

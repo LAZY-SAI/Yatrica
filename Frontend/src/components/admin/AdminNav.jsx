@@ -4,9 +4,10 @@ import {
   FaUsers,
   FaMap,
   FaPlaneArrival,
-  FaRegChartBar,
   FaBell,
 } from "react-icons/fa";
+import { CiLogout } from "react-icons/ci";
+
 import { IoSettingsOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 const NavItem = ({ name, logo, isActive, onClick }) => {
@@ -62,7 +63,7 @@ const AdminNav = () => {
    
     {
       id: 6,
-      name: "Notification",
+      name: "Notify",
       logo: <FaBell />,
       Link: "/admin-notify",
       category: "System",
@@ -74,6 +75,14 @@ const AdminNav = () => {
       Link: "/admin-setting",
       category: "System",
     },
+    {
+      id:8,
+      name:"Logout",
+      Link:"/signup",
+      logo:<CiLogout/>,
+      category:"System",
+      
+    }
   ];
   const groups = Navop.reduce((acc, item) => {
     acc[item.category] = acc[item.category] || [];

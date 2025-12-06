@@ -1,20 +1,6 @@
 import AdminLayout from "./adminLayout";
 import { useEffect, useState } from "react";
-
-const Panel = ({ title, subtitle, children, Opt, className = "" }) => (
-  <div className={`bg-gray-900 p-4 rounded-xl shadow-xl ${className}`}>
-    <div className="flex justify-between items-center mb-4">
-      <span>
-        <h3 className="text-xl font-bold text-white">{title}</h3>
-        <p className="text-gray-400 text-xs">{subtitle}</p>
-      </span>
-      <span className="text-xs text-emerald-400 cursor-pointer hover:underline">
-        {Opt}
-      </span>
-    </div>
-    {children}
-  </div>
-);
+import Panel from '../../components/admin/Panel'
 
 const Adestination = () => {
   const overView = [
@@ -25,16 +11,16 @@ const Adestination = () => {
   const [detail, setDetail] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [region,setRegion]=useState([])
+  const [region, setRegion] = useState([]);
   useEffect(() => {
-    Promise.all ([
-        fetch("/api/trips.json").then((res) => res.json()),
-        fetch("/api/region.json").then((res) => res.json()),
+    Promise.all([
+      fetch("/api/trips.json").then((res) => res.json()),
+      fetch("/api/region.json").then((res) => res.json()),
     ])
 
-      .then(([data1,data2]) => {
+      .then(([data1, data2]) => {
         setDetail(data1);
-        setRegion(data2)
+        setRegion(data2);
         setLoading(false);
       })
       .catch((error) => {
@@ -83,35 +69,40 @@ const Adestination = () => {
     );
   };
 
-
   const RegionContent = () => {
-    if (loading) return <div className="text-gray-400 text-center py-4">Loading regions...</div>;
-    if (region.length === 0) return <div className="text-gray-400 text-center py-4">No region data available.</div>;
+    if (loading)
+      return (
+        <div className="text-gray-400 text-center py-4">Loading regions...</div>
+      );
+    if (region.length === 0)
+      return (
+        <div className="text-gray-400 text-center py-4">
+          No region data available.
+        </div>
+      );
 
     return (
-        <div className="flex flex-col gap-4 pt-2">
-            {region.map((item) => (
-                <div key={item.id} className="w-full">
-                   
-                    <div className="flex justify-between items-baseline text-sm mb-1">
-                        <span className="text-gray-300 font-semibold">{item.region}</span>
-                      
-                        <span className="text-emerald-400 font-extrabold text-base">
-                            {item.Percentage ? item.Percentage.toFixed(0) : 0}%
-                        </span>
-                    </div>
+      <div className="flex flex-col gap-4 pt-2">
+        {region.map((item) => (
+          <div key={item.id} className="w-full">
+            <div className="flex justify-between items-baseline text-sm mb-1">
+              <span className="text-gray-300 font-semibold">{item.region}</span>
 
-                    {/* Progress Bar Container */}
-                    <div className="bg-gray-700 rounded-full h-3 overflow-hidden shadow-inner">
-                       
-                        <div 
-                            className="bg-emerald-600 h-full transition-all duration-500 ease-out rounded-full"
-                            style={{ width: `${item.Percentage || 0}%` }} 
-                        ></div>
-                    </div>
-                </div>
-            ))}
-        </div>
+              <span className="text-emerald-400 font-extrabold text-base">
+                {item.Percentage ? item.Percentage.toFixed(0) : 0}%
+              </span>
+            </div>
+
+            {/* Progress Bar Container */}
+            <div className="bg-gray-700 rounded-full h-3 overflow-hidden shadow-inner">
+              <div
+                className="bg-emerald-600 h-full transition-all duration-500 ease-out rounded-full"
+                style={{ width: `${item.Percentage || 0}%` }}
+              ></div>
+            </div>
+          </div>
+        ))}
+      </div>
     );
   };
 
@@ -133,7 +124,7 @@ const Adestination = () => {
     >
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-1 ">
-          <Panel title={"OverView"}  >
+          <Panel title={"OverView"}>
             <div className="flex flex-col gap-7 h-78">
               {overView.map((item) => (
                 <div
@@ -168,13 +159,27 @@ const Adestination = () => {
           </Panel>
         </div>
 
-
         <div className="md:col-span-3 lg:col-span-2">
           <Panel title={"Top Region Visited"}>
             <RegionContent />
           </Panel>
         </div>
+
+
+          <div className="col-span-1">
+              <Panel title={"Recent Changes"}>
+                <div className="mb-4 h-36">
+                  <p>Recent Changes Here!</p>
+                </div>
+              </Panel>
       </div>
+
+
+
+
+      </div>
+
+    
     </AdminLayout>
   );
 };
