@@ -5,25 +5,47 @@ import Popular from "./section/Popular";
 import Feature from "./section/Feature";
 import Signup from "./pages/Signup";
 import Footer from "./section/Footer";
-import Userdash from "./pages/UserDash";
+import Userdash from "./pages/user/UserDash";
 import Plan from "./pages/Plan";
 import Nav from "./components/Nav";
-import Discover from "./pages/Discover"
-import Post from './pages/Post'
-import Profile from './pages/Profile'
-import AdminDash from './pages/AdminDash'
+import Discover from "./pages/Discover";
+import Post from "./pages/Post";
+import Profile from "./pages/Profile";
+import AdminDash from "./pages/admin/AdminDash";
+import AdUser from "./pages/admin/admin.user";
+import Adestination from "./pages/admin/admin.destination";
 const App = () => {
   const location = useLocation();
 
-  const hideFooterRoutes = ["/signup", "/userdash", "/plan", "/profile", "/posts","/discover","/admindash"];
-  const showNavRoutes = ["/userdash", "/plan", "/profile", "/posts", "/discover"];
+  const hideFooterRoutes = [
+    "/signup",
+    "/userdash",
+    "/plan",
+    "/profile",
+    "/posts",
+    "/discover",
+    "/admindash",
+    "/admin-users",
+    "/admin-destination",
+    "/admin-trip",
+    "/admin-notify",
+    "/admin-setting"
+
+  ];
+  const showNavRoutes = [
+    "/userdash",
+    "/plan",
+    "/profile",
+    "/posts",
+    "/discover",
+  ];
 
   const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
   const shouldShowNav = showNavRoutes.includes(location.pathname);
 
   return (
     <>
-      <div className="container mx-auto max-w-8xl mb-32">
+      <div className="container mx-auto max-w-8xl ">
         <Routes>
           <Route
             path="/"
@@ -36,14 +58,15 @@ const App = () => {
               </>
             }
           />
-
           <Route path="/signup" element={<Signup />} />
           <Route path="/userdash" element={<Userdash />} />
-          <Route path="/discover" element={<Discover/>}/>
+          <Route path="/discover" element={<Discover />} />
           <Route path="/plan" element={<Plan />} />
-          <Route path="/posts" element={<Post/>}/>
-          <Route path="/profile" element ={<Profile/>}/>
-          <Route path="/admindash" element={<AdminDash/>}/>
+          <Route path="/posts" element={<Post />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admindash" element={<AdminDash />} />
+          <Route path="admin-users" element={<AdUser />} /> 
+          <Route path="/admin-destination"element={<Adestination/>}/>
         </Routes>
       </div>
 

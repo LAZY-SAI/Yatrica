@@ -1,32 +1,41 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
+//  InputField Component 
+const InputField = ({
+  type,
+  placeholder,
+  value,
+  onChange,
+  icon,
+  name,
+  error,
+}) => (
+  <div className="relative w-full max-w-xs h-16">
+    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+      {icon}
+    </span>
+    <input
+      type={type}
+      placeholder={placeholder}
+      required
+      value={value}
+      onChange={onChange}
+      name={name}
+      className="w-full pl-10 pr-4 py-3 border-b border-gray-300 focus:ring-0 focus:border-indigo-600 outline-none text-gray-700 transition duration-200 text-base"
+    />
 
-const InputField = ({ type, placeholder, value, onChange, icon, name, error }) => (
-    <div className="relative w-full max-w-xs h-16"> 
-      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-        {icon}
-      </span>
-      <input
-        type={type}
-        placeholder={placeholder}
-        required
-        value={value}
-        onChange={onChange}
-        name={name}
-        className="w-full pl-10 pr-4 py-3 border-b border-gray-300 focus:ring-0 focus:border-indigo-600 outline-none text-gray-700 transition duration-200 text-base"
-      />
-    
-      {error && (
-        <p className="text-red-500 text-sm mt-1 text-left absolute w-full top-full">
-            {error}
-        </p>
-      )}
-    </div>
-  );
+    {error && (
+      <p className="text-red-500 text-sm mt-1 text-left absolute w-full top-full">
+        {error}
+      </p>
+    )}
+  </div>
+);
 
+//  Signup Component 
 const Signup = () => {
-  const  navigate = useNavigate()
+  const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
 
   // Login State
@@ -41,9 +50,8 @@ const Signup = () => {
   const [slideDirection, setSlideDirection] = useState(null);
   const [imageSide, setImageSide] = useState("right");
   const imgRef = useRef(null);
-
-  const [interactionDisable, setIntercationDisable ] = useState(false)
-  const [errors, setErrors] = useState({})
+  const [interactionDisable, setIntercationDisable] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleSlide = (targetSide) => {
     if (imgRef.current) {
@@ -51,7 +59,7 @@ const Signup = () => {
 
       void imgRef.current.offsetWidth;
     }
-    setIntercationDisable(true)
+    setIntercationDisable(true);
 
     if (targetSide === "left") {
       setSlideDirection("slide-left");
@@ -62,67 +70,74 @@ const Signup = () => {
     }
 
     setTimeout(() => {
-      setSlideDirection(null)
-      setIntercationDisable(false)
-      setErrors({});
+      setSlideDirection(null);
+      setIntercationDisable(false);
+      setErrors({}); // Clear errors on slide change
     }, 750);
   };
 
   const validateForm = (isLogin) => {
     const newErrors = {};
 
-   const emailRegex = /^[^\s@]+@(?:gmail)\.com$/;
+  
+    const emailRegex = /^[^\s@]+@(?:gmail)\.com$/;
 
     if (isLogin) {
       // LOGIN VALIDATION
       if (!email.trim()) {
-        newErrors.email = 'Email cannot be empty.';
+        newErrors.email = "Email cannot be empty.";
       } else if (!emailRegex.test(email)) {
         newErrors.email = "Invalid Email format.";
       }
 
       if (!password.trim()) {
-        newErrors.password = 'Password cannot be empty.';
+        newErrors.password = "Password cannot be empty.";
       }
     } else {
       // SIGNUP VALIDATION
       if (!username.trim()) {
-        newErrors.username = 'Username cannot be empty.';
+        newErrors.username = "Username cannot be empty.";
       }
 
       if (!signupEmail.trim()) {
-        newErrors.signupEmail = 'Email cannot be empty.';
+        newErrors.signupEmail = "Email cannot be empty.";
       } else if (!emailRegex.test(signupEmail)) {
         newErrors.signupEmail = "Invalid Email format.";
       }
 
       if (!signupPassword.trim()) {
-        newErrors.signupPassword = 'Password cannot be empty.';
+        newErrors.signupPassword = "Password cannot be empty.";
       } else if (signupPassword.length < 6) {
-        newErrors.signupPassword = 'Password must be at least 6 characters.';
+        newErrors.signupPassword = "Password must be at least 6 characters.";
       }
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  }
-  
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate('/userdash')
     if (validateForm(true)) {
       console.log("Logging in with:", email, password);
-      // setLoggedIn(true);
+    
+      navigate("/userdash");
+     
     }
   };
 
   const handleSignup = (e) => {
-    navigate('/admindash')
     e.preventDefault();
     if (validateForm(false)) {
       console.log("Signing up with:", username, signupEmail, signupPassword);
+     
+      navigate("/admindash");
+
+    
+   
     }
   };
+  
 
   if (loggedIn) {
     return (
@@ -145,7 +160,11 @@ const Signup = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 font-sans z-50">
-      <div className={`w-[54rem] h-[44rem] bg-white rounded-3xl shadow-2xl grid grid-cols-2 relative overflow-hidden ${interactionDisable ? "pointer-events-none":""}`}>
+      <div
+        className={`w-[54rem] h-[44rem] bg-white rounded-3xl shadow-2xl grid grid-cols-2 relative overflow-hidden ${
+          interactionDisable ? "pointer-events-none" : ""
+        }`}
+      >
         {/* LEFT PANEL  */}
         <div
           className={`flex flex-col justify-center items-center p-12 transition-colors duration-700 ${
@@ -155,8 +174,6 @@ const Signup = () => {
           }`}
         >
           {imageSide === "left" ? (
-         
-          
             <>
               <h2 className="text-4xl font-extrabold mb-4">New Here?</h2>
               <p className="mb-10 text-center text-lg text-indigo-200">
@@ -170,7 +187,7 @@ const Signup = () => {
               </button>
             </>
           ) : (
-            // LOGIN FORM 
+            // LOGIN FORM
             <>
               <h2 className="text-4xl font-extrabold mb-8 text-indigo-600">
                 Welcome Back!
@@ -200,12 +217,16 @@ const Signup = () => {
                 <button
                   type="submit"
                   className="w-full max-w-xs px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-indigo-700 mt-4"
-                  onClick={handleLogin}
-                > 
+                >
                   Log In
                 </button>
               </form>
-              <a href="#" className="mb-4 text-sm text-indigo-600 hover:text-indigo-700 transition duration-300">Forgot password?</a>
+              <a
+                href="#"
+                className="mb-4 text-sm text-indigo-600 hover:text-indigo-700 transition duration-300"
+              >
+                Forgot password?
+              </a>
               <p className="text-gray-600 mb-4">Don't have an account?</p>
               <button
                 className="px-6 py-2 border border-indigo-600 text-indigo-600 font-semibold rounded-full hover:bg-indigo-50/20 transition duration-300"
@@ -226,7 +247,6 @@ const Signup = () => {
           }`}
         >
           {imageSide === "right" ? (
-           
             <>
               <h2 className="text-4xl font-extrabold mb-4">
                 Already a Member?
@@ -242,7 +262,7 @@ const Signup = () => {
               </button>
             </>
           ) : (
-            // SIGNUP FORM 
+            // SIGNUP FORM
             <>
               <h2 className="text-4xl font-extrabold mb-8 text-indigo-600">
                 Create Account
@@ -281,18 +301,22 @@ const Signup = () => {
                 <button
                   type="submit"
                   className="w-full max-w-xs px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-indigo-700 mt-4"
-                onClick={()=> navigate("/admindash")}>
+                 >
                   Sign Up
                 </button>
               </form>
-               <button
-                  type="button"
-                  className="w-full max-w-xs px-8 py-3 bg-cyan-800 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-cyan-700 mt-4"
-                  onClick={() => navigate("/userdash")}
-                >
-                 Continue as Guest
-                </button>
-              <p className="text-gray-600 mb-4 mt-8">Already have an account?</p>
+             
+             
+              <button
+                type="button"
+                className="w-full max-w-xs px-8 py-3 bg-green-800 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-green-700 mt-4"
+                
+              >
+                Continue as Guest
+              </button>
+              <p className="text-gray-600 mb-4 mt-8">
+                Already have an account?
+              </p>
               <button
                 className="px-6 py-2 border border-indigo-600 text-indigo-600 font-semibold rounded-full hover:bg-indigo-50/20 transition duration-300"
                 onClick={() => handleSlide("right")}
@@ -311,19 +335,16 @@ const Signup = () => {
             className={`
               object-cover w-1/2 h-full rounded-3xl shadow-xl transition-all duration-300 bg-indigo-700 text-white flex flex-col items-center justify-center p-12 text-center
               ${
-              
                 slideDirection === "slide-left"
                   ? "slide-left"
                   : slideDirection === "slide-right"
                   ? "slide-right"
-                  : 
-                  imageSide === "right"
+                  : imageSide === "right"
                   ? "start-right"
                   : "start-left"
               }
             `}
           >
-         
             {imageSide === "right" ? (
               <>
                 <h2 className="text-4xl font-extrabold mb-4">Welcome Back!</h2>

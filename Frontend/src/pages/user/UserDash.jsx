@@ -43,7 +43,7 @@ const UserDash = () => {
           {/* Main Header  */}
           <header className="flex items-center justify-between px-4 pt-4 pb-2 max-w-7xl mx-auto">
             {/* Logo  */}
-            <span className="text-xl font-bold text-white mr-4">TourBook</span>
+            <span className="text-xl font-bold text-white mr-4">Yatrica</span>
 
             {/*  Search Input  */}
             <div
@@ -59,10 +59,10 @@ const UserDash = () => {
             </div>
            
             <div className="hidden lg:flex items-center ml-8 gap-6 text-white text-sm font-medium">
-                <span className="text-emerald-500 font-bold">Home</span>
-                <span>Discover</span>
-                <span>Plan</span>
-                <span>Posts</span>
+                
+               
+                <span>My Plan</span>
+               
             </div>
             {/* Profile */}
             <div className="w-8 h-8 rounded-full bg-gray-600 ml-4 cursor-pointer"></div>
