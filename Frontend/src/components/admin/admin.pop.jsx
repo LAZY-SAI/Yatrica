@@ -55,7 +55,7 @@ const Popup = ({ isOpen, onClose, onSave }) => {
             name='title' 
             value={formData.title}
             onChange={handleChange}
-            placeholder='e.g., Summer Trip to Bali'
+            placeholder='Destination name'
             required
             className={inputClass}
           />

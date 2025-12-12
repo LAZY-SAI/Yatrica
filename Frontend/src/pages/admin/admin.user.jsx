@@ -1,5 +1,7 @@
 import AdminLayout from "./adminLayout";
 import Panel from '../../components/admin/Panel'
+import UserPop from '../../components/admin/admin.userpop'
+import { useState } from "react";
 const AdUser = () => {
   const activity = [
     { id: 1, name: "Total Users", numbers: "18,240", percent: "+8.2%" },
@@ -8,6 +10,22 @@ const AdUser = () => {
     { id: 4, name: "Blocked", numbers: "134", percent: "-0.4%" },
     
   ];
+
+  const [isPopOpen, setIsPopOpen] = useState(false)
+  const [detail,setDetail] = useState([])
+  const handleSaveInfo = (newGuideData)=>{
+    const tempId = Date.now();
+    const newGuide = {
+      id:tempId,
+      name: newGuideData.name,
+      description: newGuideData.description,
+      place: newGuideData.place,
+
+
+    };
+    setDetail(prev => [...prev,newGuide])
+
+  }
   return (
     <AdminLayout
     header={
@@ -16,7 +34,9 @@ const AdUser = () => {
             <h2 className="text-xl font-bold">Users</h2>
             <p className="text-sm text-gray-400">Monitor Users activity</p>
           </div>
-          <button className="bg-emerald-800 p-3 rounded-2xl">
+          <button 
+          onClick={()=> {setIsPopOpen(true)}}
+          className="bg-emerald-800 p-3 rounded-2xl">
             Register Guide
           </button>
        
@@ -91,6 +111,12 @@ const AdUser = () => {
         </div>
       </div>
 
+
+           <UserPop
+        isOpen={isPopOpen}
+        onClose={() => setIsPopOpen(false)}
+        onSave={handleSaveInfo} 
+      />
     </AdminLayout>
   );
 }
