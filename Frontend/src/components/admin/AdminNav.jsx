@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { MdDashboard } from "react-icons/md";
 import {
   FaUsers,
@@ -9,7 +9,7 @@ import {
 import { CiLogout } from "react-icons/ci";
 
 import { IoSettingsOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const NavItem = ({ name, logo, isActive, onClick }) => {
   const baseClasses =
     "flex items-center text-lg p-2 gap-3 rounded-lg cursor-pointer transition-colors ";
@@ -28,8 +28,11 @@ const NavItem = ({ name, logo, isActive, onClick }) => {
   );
 };
 const AdminNav = () => {
-  const [activeItem, setActiveItem] = useState();
-
+  //const [activeItem, setActiveItem] = useState();
+  const location = useLocation()
+  const isActiveLink = (linkpath)=>{
+    return location.pathname === linkpath
+  }
   const Navop = [
     {
       id: 1,
@@ -56,21 +59,21 @@ const AdminNav = () => {
 
    
     {
-      id: 5,
+      id: 4,
        name: "Notify",
       logo: <FaBell />,
       Link: "/admin-notify",
       category: "System",
     },
     {
-      id: 7,
+      id: 5,
       name: "Setting",
       logo: <IoSettingsOutline />,
       Link: "/admin-setting",
       category: "System",
     },
     {
-      id:8,
+      id:6,
       name:"Logout",
       Link:"/signup",
       logo:<CiLogout/>,
@@ -84,9 +87,9 @@ const AdminNav = () => {
     return acc;
   }, {});
 
-  const handleClick = (name) => {
-    setActiveItem(name);
-  };
+  // const handleClick = (name) => {
+  //   setActiveItem(name);
+  // };
   return (
     <nav className="min-h-screen p-4 text-white w-64 md:w-72 shadow-lg">
       {Object.entries(groups).map(([category, items]) => (
@@ -101,8 +104,8 @@ const AdminNav = () => {
                 <NavItem
                   name={item.name}
                   logo={item.logo}
-                  isActive={activeItem === item.name}
-                  onClick={() => handleClick(item.name)}
+                  isActive={isActiveLink(item.Link)}
+                  onClick={()=> console.log(`moved to${item.Link} `)}
                 />
               </Link>
             ))}
