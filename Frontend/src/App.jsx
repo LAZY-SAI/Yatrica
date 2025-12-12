@@ -15,6 +15,7 @@ import AdminDash from "./pages/admin/AdminDash";
 import AdUser from "./pages/admin/admin.user";
 import Adestination from "./pages/admin/admin.destination";
 import Notify from './pages/admin/admin.notify'
+import Adsetting from './pages/admin/admin.setting'
 const App = () => {
   const location = useLocation();
 
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="admin-users" element={<AdUser />} /> 
           <Route path="/admin-destination"element={<Adestination/>}/>
            <Route path="/admin-notify"element={<Notify/>}/>
+           <Route path="/admin-setting" element={<Adsetting/>}/>
         
         </Routes>
       </div>

@@ -1,8 +1,12 @@
-import React from 'react'
+import AdminLayout from "./adminLayout";
 
 const Setting = () => {
   return (
-    <div>Setting</div>
+   <AdminLayout header={<header>
+    <h2></h2>
+   </header>}>
+
+   </AdminLayout>
   )
 }
 

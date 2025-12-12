@@ -52,18 +52,12 @@ const AdminNav = () => {
       Link: "/admin-destination",
       category: "Overview",
     },
-    {
-      id: 4,
-      name: "Trip",
-      logo: <FaPlaneArrival />,
-      Link: "/admin-trip",
-      category: "Overview",
-    },
+
 
    
     {
-      id: 6,
-      name: "Notify",
+      id: 5,
+       name: "Notify",
       logo: <FaBell />,
       Link: "/admin-notify",
       category: "System",

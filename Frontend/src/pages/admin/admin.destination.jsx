@@ -1,26 +1,38 @@
 import AdminLayout from "./adminLayout";
 import { useEffect, useState } from "react";
 import Panel from '../../components/admin/Panel'
+import PopUp from '../../components/admin/admin.pop' 
 
 const Adestination = () => {
-  const overView = [
-    { id: 1, title: "Total destination", num: 248 },
-    { id: 2, title: "Activity", num: 221 },
+ 
+  const [overView, setOverView] = useState([
+    { id: 1, title: "Total Destinations", num: 0 }, 
+    { id: 2, title: "Activities", num: 221 },
     { id: 3, title: "Featured Spots", num: 32 },
-  ];
-  const [detail, setDetail] = useState([]);
+  ]);
+
+  const [isPopOpen, setIsPopOpen] = useState(false);
+  const [detail, setDetail] = useState([]); 
+  const [region, setRegion] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [region, setRegion] = useState([]);
+
+  
   useEffect(() => {
     Promise.all([
       fetch("/api/trips.json").then((res) => res.json()),
       fetch("/api/region.json").then((res) => res.json()),
     ])
-
       .then(([data1, data2]) => {
         setDetail(data1);
         setRegion(data2);
+        
+       
+        setOverView(prev => 
+            prev.map(item => 
+                item.id === 1 ? { ...item, num: data1.length } : item
+            )
+        );
         setLoading(false);
       })
       .catch((error) => {
@@ -29,11 +41,42 @@ const Adestination = () => {
       });
   }, []);
 
+
+
+
+  const handleSaveDestination = (newDestinationData) => {
+   
+    const tempId = Date.now(); 
+    const newDestination = {
+        id: tempId,
+        name: newDestinationData.title, 
+        region: newDestinationData.region,
+     
+    };
+    
+    setDetail(prev => [...prev, newDestination]);
+    
+   
+    setOverView(prev => 
+        prev.map(item => 
+            item.id === 1 ? { ...item, num: item.num + 1 } : item
+        )
+    );
+
+    
+    console.log("Saving new destination to API:", newDestinationData);
+    
+
+  };
+
+
   const filterData = detail.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
+
   const DetailContent = () => {
+   
     if (loading) {
       return (
         <div className="text-gray-400 text-center py-4">
@@ -70,6 +113,7 @@ const Adestination = () => {
   };
 
   const RegionContent = () => {
+    
     if (loading)
       return (
         <div className="text-gray-400 text-center py-4">Loading regions...</div>
@@ -93,7 +137,7 @@ const Adestination = () => {
               </span>
             </div>
 
-            {/* Progress Bar Container */}
+            {/* Progress Bar  */}
             <div className="bg-gray-700 rounded-full h-3 overflow-hidden shadow-inner">
               <div
                 className="bg-emerald-600 h-full transition-all duration-500 ease-out rounded-full"
@@ -116,13 +160,19 @@ const Adestination = () => {
               Add ,Update & remove the places
             </p>
           </div>
-          <button className="bg-emerald-800 hover:bg-emerald-700 p-3 rounded-2xl transition duration-150">
+          {/* Button to open the popup */}
+          <button
+            onClick={() => { setIsPopOpen(true) }} 
+            className="bg-emerald-800 hover:bg-emerald-700 p-3 rounded-2xl transition duration-150 text-white font-semibold"
+          >
             Add destination
           </button>
         </header>
       }
     >
       <div className="grid grid-cols-3 gap-6">
+        
+        {/* OverView Panel */}
         <div className="col-span-1 ">
           <Panel title={"OverView"}>
             <div className="flex flex-col gap-7 h-78">
@@ -143,6 +193,7 @@ const Adestination = () => {
           </Panel>
         </div>
 
+        {/* Destination List Panel */}
         <div className="col-span-2">
           <Panel title={"Destination"} Opt={"View All"}>
             <div className="mb-4">
@@ -154,11 +205,11 @@ const Adestination = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-
             <DetailContent />
           </Panel>
         </div>
 
+        {/* Top Region Panel */}
         <div className="md:col-span-3 lg:col-span-2">
           <Panel title={"Top Region Visited"}>
             <RegionContent />
@@ -166,20 +217,22 @@ const Adestination = () => {
         </div>
 
 
-          <div className="col-span-1">
-              <Panel title={"Recent Changes"}>
-                <div className="mb-4 h-36">
-                  <p>Recent Changes Here!</p>
-                </div>
-              </Panel>
-      </div>
-
-
-
-
+        {/* Recent Changes Panel */}
+        <div className="col-span-1">
+          <Panel title={"Recent Changes"}>
+            <div className="mb-4 h-36">
+              <p className="text-gray-400">Recent changes feed would go here.</p>
+            </div>
+          </Panel>
+        </div>
       </div>
 
     
+      <PopUp
+        isOpen={isPopOpen}
+        onClose={() => setIsPopOpen(false)}
+        onSave={handleSaveDestination} 
+      />
     </AdminLayout>
   );
 };
