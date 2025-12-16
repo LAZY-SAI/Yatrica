@@ -1,0 +1,8 @@
+[
+  { "id": 1, "name": "Annapurna circuit", "image": "assets/img/annapurna.jpg" },
+  { "id": 2, "name": "Mardi circuit", "image": "assets/img/mardi.jpg" },
+  { "id": 3, "name": "Lumbini", "image": "assets/img/lumbini.jpg" },
+  { "id": 4, "name": "Everest circuit", "image": "assets/img/everest.jpg" },
+  { "id": 5, "name": "Manaslu circuit", "image": "assets/img/manaslu.jpg" },
+  { "id": 6, "name": "Rara lake", "image": "assets/img/rara.jpg" }
+]

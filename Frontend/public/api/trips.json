@@ -1,0 +1,13 @@
+[
+                    { "id": 1, "name": "Paris, France" },
+                    { "id": 2, "name": "Kyoto, Japan" },
+                    { "id": 3, "name": "Rio de Janeiro, Brazil" },
+                    { "id": 4, "name": "Sydney, Australia" },
+                    { "id": 5, "name": "New York City, USA" },
+                    { "id": 6, "name": "Marrakech, Morocco" },
+                    { "id": 7, "name": "Banff, Canada" },
+                    { "id": 8, "name": "Santorini, Greece" },
+                    { "id": 9, "name": "Cape Town, South Africa" },
+                    { "id": 10, "name": "Bora Bora, French Polynesia" },
+                    { "id": 11, "name": "Rome, Italy" }
+]

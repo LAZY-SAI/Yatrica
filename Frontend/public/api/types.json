@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "tag": "Nearby"
+  },
+  {
+    "id": 2,
+    "tag": "popular"
+  },
+  {
+    "id": 3,
+    "tag": "Budget"
+  },
+  {
+    "id": 4,
+    "tag": "Nature"
+  },
+  {
+    "id": 5,
+    "tag": "Adventure"
+  },
+  {
+    "id": 6,
+    "tag": "Cities"
+  },
+  {
+    "id": 7,
+    "tag": "Hiking"
+  },
+  {
+    "id": 8,
+    "tag": "Food"
+  },
+  {
+    "id": 9,
+    "tag": "Culture"
+  }
+]
