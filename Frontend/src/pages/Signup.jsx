@@ -3,8 +3,9 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
-const API_URI = import.meta.env.VITE_API_URI; 
-//  InputField Component
+const API_URI = import.meta.env.VITE_API_URI;
+
+// InputField Component
 const InputField = ({
   type,
   placeholder,
@@ -36,7 +37,7 @@ const InputField = ({
   </div>
 );
 
-//  Signup Component
+// Signup Component
 const Signup = () => {
   const navigate = useNavigate();
   //const [loggedIn, setLoggedIn] = useState(false);
@@ -76,6 +77,13 @@ const Signup = () => {
       setSlideDirection(null);
       setIntercationDisable(false);
       setErrors({}); // Clear errors on slide change
+      
+      // Clear all input states when sliding for a fresh form view
+      setLoginEmail("");
+      setLoginPassword("");
+      setUsername("");
+      setSignupEmail("");
+      setSignupPassword("");
     }, 750);
   };
 
@@ -89,7 +97,7 @@ const Signup = () => {
       if (!loginEmail.trim()) {
         newErrors.email = "Email cannot be empty.";
       } else if (!emailRegex.test(loginEmail)) {
-        newErrors.email = "Invalid Email format.";
+        newErrors.email = "Invalid Email format (must be @gmail.com).";
       }
 
       if (!loginPassword.trim()) {
@@ -104,7 +112,7 @@ const Signup = () => {
       if (!signupEmail.trim()) {
         newErrors.signupEmail = "Email cannot be empty.";
       } else if (!emailRegex.test(signupEmail)) {
-        newErrors.signupEmail = "Invalid Email format.";
+        newErrors.signupEmail = "Invalid Email format (must be @gmail.com).";
       }
 
       if (!signupPassword.trim()) {
@@ -130,7 +138,7 @@ const Signup = () => {
     });
 
   const notifySignup = () =>
-    toast.success("Successfully signedup!", {
+    toast.success("Successfully signed up!", {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -140,38 +148,53 @@ const Signup = () => {
       progress: undefined,
     });
 
-    
+  // handleLogin
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (validateForm(true)) {
-      console.log("Logging in with:", loginEmail, loginPassword);
- 
+
+    // Fix: Stop execution if validation fails
+    if (!validateForm(true)) {
+      return;
     }
 
-    const res = await fetch(`${API_URI}/login`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: loginEmail,
-        password: loginPassword,
-      }),
-    });
-    const data = await res.json();
-    if (res.status === 200) {
-      toast.success(data.message || "logged-in Successfully!");
+    try {
+      // sending request
+      const res = await fetch(`${API_URI}/login`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email: loginEmail,
+          password: loginPassword,
+        }),
+      });
+
+      // Handle non-200 status codes 
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || `Login failed with status: ${res.status}`);
+      }
+
+      // Success path 
+      const data = await res.json();
+      toast.success(data.message || "Logged-in Successfully!");
 
       setTimeout(() => {
-        notifyLogin();
+         notifyLogin(); 
         navigate("/userdash");
       }, 2000);
-    } else {
-      toast.error(data.message || "login failed. Please try again.");
+      
+    } catch (error) {
+   
+      console.error("Login Error:", error.message);
+      toast.error(error.message || "Login failed due to a network error. Please try again.", {
+        style: { backgroundColor: 'rgb(239, 68, 68)', color: 'white' }
+      });
     }
   };
 
-  //signup
+  // signup
   const handleSignup = async (e) => {
     e.preventDefault();
 
@@ -179,29 +202,40 @@ const Signup = () => {
       return;
     }
 
-    // sending request
-    const res = await fetch(`${API_URI}/signup`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email: signupEmail,
-        password: signupPassword,
-      }),
-    });
+    try {
+      // sending request
+      const res = await fetch(`${API_URI}/signup`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email: signupEmail,
+          password: signupPassword,
+        }),
+      });
 
-    const data = await res.json();
-    if (res.status === 201) {
+      // Handle non-201 status codes (e.g., 409 Conflict, 500 Server Error)
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || `Sign-up failed with status: ${res.status}`);
+      }
+      
+      const data = await res.json();
       toast.success(data.message || "Signed-up Successfully! Redirecting...");
 
       setTimeout(() => {
-        notifySignup();
+         notifySignup(); 
         navigate("/admindash");
       }, 2000);
-    } else {
-      toast.error(data.message || "Sign-up failed. Please try again.");
+
+    } catch (error) {
+ 
+      console.error("Signup Error:", error.message);
+      toast.error(error.message || "Sign-up failed due to a network error. Please try again.", {
+        style: { backgroundColor: 'rgb(239, 68, 68)', color: 'white' }
+      });
     }
   };
 

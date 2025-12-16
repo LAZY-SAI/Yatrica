@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Model from "../Model";
 
+const API_URI = import.meta.env.VITE_API_URI; 
 const Userpop = ({ isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -13,8 +14,25 @@ const Userpop = ({ isOpen, onClose, onSave }) => {
     setFormData(prev =>({...prev, [name]:value}))
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+
+    const res= await fetch(`${API_URI}/admin-users`,{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify({
+          username:formData.name,
+          description:formData.description,
+          from:formData.from
+        })
+    })
+
+    const data = await res.json()
+    console.log("response from server",data)
+
+
     onSave(formData);
     onClose();
     setFormData({

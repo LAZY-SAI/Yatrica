@@ -1,7 +1,7 @@
 
 import { FaSearch , FaHeart} from "react-icons/fa";
 import { useEffect, useState } from "react";
-
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const UserDash = () => {
@@ -17,6 +17,7 @@ const UserDash = () => {
     { name: "Itineraries", active: false },
   ];
 
+  const navigate = useNavigate()
   useEffect(() => {
    
     Promise.all([
@@ -65,7 +66,8 @@ const UserDash = () => {
                
             </div>
             {/* Profile */}
-            <div className="w-8 h-8 rounded-full bg-gray-600 ml-4 cursor-pointer"></div>
+            <div className="w-8 h-8 rounded-full bg-gray-600 ml-4 cursor-pointer"
+            onClick={()=>navigate('/profile')}></div>
           </header>
 
           {/* Tag Section  */}

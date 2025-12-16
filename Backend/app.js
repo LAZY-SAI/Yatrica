@@ -1,21 +1,34 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
-import dotenv from "dotenv";
+
 import useRoute from "./routes/route.user.js";
+import destRoute from "./routes/route.destination.js";
+
 const app = express();
+const PORT = process.env.PORT || 5000;
+
 app.use(express.json());
 app.use(helmet());
-dotenv.config()
-app.use(
-  cors({
-    origin: [`${process.env.URI}`],
+
+
+const corsOptions = {
+    origin: true, 
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
-const Port = 3000;
+    allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions));
+
+
+
 app.use("/", useRoute);
-app.listen(process.env.PORT, () => {
-  console.log(`app is running at localhost:${Port}`);
+app.use("/", destRoute);
+
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
 });

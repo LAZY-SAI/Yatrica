@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Panel from '../../components/admin/Panel'
 import PopUp from '../../components/admin/admin.pop' 
 
-const API_URI = import.meta.env.VITE_API_URI; 
+
 const Adestination = () => {
  
   const [overView, setOverView] = useState([
@@ -45,8 +45,9 @@ const Adestination = () => {
 
 
 
-  const handleSaveDestination = (newDestinationData) => {
-   
+  const handleSaveDestination =(newDestinationData) => {
+     
+
     const tempId = Date.now(); 
     const newDestination = {
         id: tempId,
