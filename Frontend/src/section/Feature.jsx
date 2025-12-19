@@ -35,7 +35,7 @@ const Feature = () => {
   ];
 
   return (
-    <section className="c-space section-spacing">
+    <section className="c-space section-spacing max-w-7xl mx-auto">
       <h2 className="text-heading">Services</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[10rem] mt-12">
         {Services.map((service, index) => (

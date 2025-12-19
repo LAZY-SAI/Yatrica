@@ -1,4 +1,4 @@
-import Pnav from "../components/ProflleNav";
+import Pnav from "../../../components/ProflleNav";
 
 import {
   FiMail,
