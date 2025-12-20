@@ -16,19 +16,14 @@ const SetTripDetails = () => {
             onClick={() => navigate(-1)}
             className="p-3 rounded-full hover:bg-gray-800 transition-colors"
           >
-            <FaArrowLeft className="text-gray-400" />
+            <FaArrowLeft className="text-white-400" />
           </button>
           <div>
             <h1 className="text-3xl font-bold">Set your trip details</h1>
             <p className="text-gray-400 text-sm">Choose dates, who's coming with you, and a comfortable budget.</p>
           </div>
         </div>
-        <div className="flex gap-4">
-          <button className="text-sm font-semibold hover:underline">Skip for now</button>
-          <button className="bg-[#10b981] hover:bg-emerald-600 px-4 py-2 rounded-lg font-medium transition-colors">
-            Use flexible dates
-          </button>
-        </div>
+       
       </header>
 
       <main className="max-w-6xl mx-auto grid grid-cols-12 gap-8">

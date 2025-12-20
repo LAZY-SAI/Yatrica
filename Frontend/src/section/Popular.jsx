@@ -10,7 +10,7 @@ const Popular = () => {
       .catch((err) => console.error(err));
   }, []);
   return (
-    <section className="flex-1 mt-6 px-7 mx-auto w-full">
+    <section className="flex-1 mt-6 px-7 max-w-6xl mx-auto w-full">
       <div className="flex justify-between items-center mb-6">
         <h2 className="font-bold text-xl text-white headtext">
           Featured destinations
@@ -23,7 +23,7 @@ const Popular = () => {
         {popularItems.slice(0, 6).map((item) => (
           <div
             key={item.id}
-            className="relative w-sm rounded-2xl overflow-hidden shadow-xl cursor-pointer hover:scale-[1.03] transition-transform duration-300 group aspect-[4/3] sm:aspect-[3/2] md:aspect-[4/3] lg:aspect-[3/2]"
+            className="relative  rounded-2xl overflow-hidden shadow-xl cursor-pointer hover:scale-[1.03] transition-transform duration-300 group aspect-[4/3] sm:aspect-[3/2] md:aspect-[4/3] lg:aspect-[3/2]"
           >
             <img
               src={item.image}

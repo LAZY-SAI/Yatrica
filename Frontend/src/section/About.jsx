@@ -69,22 +69,22 @@ const About = () => {
                 position: [4, 7, 7], // top-right, looking down
                 fov: 50,
                 near: 0.1,
-                far: 2000,
+                far: 1000,
               }}
               style={{ width: "120vw", height: "38vh"}}
             >
               <Float />
               <ambientLight intensity={0.5} />
-              <directionalLight position={[15, 15, 9]} intensity={10} />
+              <directionalLight position={[15, 15, 10]} intensity={10} />
 
               {/* Boots */}
-              <group position={[-7, 0.6, 5]}>
+              <group position={[-7.5, 0.6, 5]}>
                 <Boots />
                 <Shadow position={[-0.1, 0, 1]} scale={[5, 3, 1]} opacity={1} />
               </group>
 
               {/* Backpack */}
-              <group position={[11.8, 2.8, -2.6]}>
+              <group position={[8.2, 1.8, 8.1]}>
                 <Backpack />
                 <Shadow
                   position={[-1, -1.2, 0.3]}
@@ -118,13 +118,14 @@ const About = () => {
 
 function Rig() {
   return useFrame((state, delta) => {
+    
     const targetPos = [
-      4 + state.mouse.x * 0.1, // horizontal sway
-      6 - state.mouse.y * 0.2, // vertical tilt
-      6,
+      state.mouse.x * 1.3, // Subtle horizontal sway
+      4 + state.mouse.y * 1, // Subtle vertical tilt
+      12, 
     ];
     easing.damp3(state.camera.position, targetPos, 0.25, delta);
-    state.camera.lookAt(0, 0, 0); // Always look at center
+    state.camera.lookAt(0, 0, 0); 
   });
 }
 
