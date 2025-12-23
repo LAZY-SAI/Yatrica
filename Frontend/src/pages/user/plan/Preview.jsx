@@ -25,7 +25,8 @@ const Preview = () => {
      
 
       <header className="max-w-6xl mx-auto flex gap-4 items-end mb-8">
-         <button onClick={() => navigate(-1)} className="flex items-center gap-2 hover:text-white transition-colors">
+         <button onClick={() => navigate(-1)}
+          className="flex items-center gap-2 p-3 rounded-full hover:text-white hover:bg-gray-700 transition-colors">
           <FaArrowLeft /> 
         </button>
         <div>

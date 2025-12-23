@@ -17,7 +17,7 @@ const About = () => {
       <section className="c-space section-spacing">
       <h2 className="text-heading">About Us</h2>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[18rem] mt-12 ">
+      <div className="grid grid-cols-1 max-w-7xl gap-4 md:grid-cols-6 md:auto-rows-[18rem] mt-12 ">
         {/* Grid 1 */}
         <div className="flex items-end grid-default-color grid-1">
           <figure className="absolute items-center left-30 -top-13  ">
@@ -87,9 +87,9 @@ const About = () => {
               <group position={[8.2, 1.8, 8.1]}>
                 <Backpack />
                 <Shadow
-                  position={[-1, -1.2, 0.3]}
-                  scale={[2, 2, 1]}
-                  opacity={1}
+                  position={[-2.2, -0.8, 0]}
+                  scale={[3, 2, 0]}
+                  opacity={0.8}
                 />
               </group>
 

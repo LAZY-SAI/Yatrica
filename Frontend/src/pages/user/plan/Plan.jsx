@@ -3,9 +3,9 @@ import {
   FaMapMarkedAlt,
   FaBrain,
   FaSuitcaseRolling,
-  FaCalendarAlt, 
-  FaUsers, 
-  FaDollarSign, 
+  FaCalendarAlt,
+  FaUsers,
+  FaDollarSign,
 } from "react-icons/fa";
 
 import { useState, useEffect } from "react";
@@ -39,15 +39,16 @@ const Plan = () => {
       {
         id: 1,
         name: "Create Trip",
-        icon: "map", 
+        icon: "map",
         description: "Set destination, dates, travelers & budget manually",
-        Link: "/plan/create" 
+        Link: "/plan/create",
       },
       {
         id: 2,
         name: "Plan with AI",
         icon: "brain",
-        description: "Tell us the vibe and constraints; get a tailored itinerary",
+        description:"Tell us the vibe and constraints; get a tailored itinerary",
+          Link:"/plan/AiPlan"
       },
       {
         id: 3,
@@ -66,15 +67,19 @@ const Plan = () => {
   return (
     <div className="flex flex-col gap-8 py-2 text-white min-h-screen">
       {/* Header */}
-      <header className="flex flex-row items-center px-4 py-3 border-b border-gray-700/50">
-        <button 
+      <header className="flex flex-row w-full items-center px-4 py-3 border-b border-gray-700/50">
+        <button
           className="text-xl p-2 rounded-full hover:bg-[#192c3b89] transition-colors"
-          onClick={() => navigate('/userdash')}
+          onClick={() => navigate("/userdash")}
         >
           <FaArrowLeft />
         </button>
 
-        <div className="w-8 h-8 rounded-full bg-gray-600 ml-auto cursor-pointer border-2 border-emerald-400"></div>
+        <span onClick={()=>navigate('/plan/myplan') }
+        className="font-semibold text-xl ml-auto mr-4 p-1 rounded-xl hover:bg-gray-700">My Plans</span>
+
+        {/* Profile Icon */}
+        <div className="w-8 h-8 rounded-full bg-gray-600 cursor-pointer border-2 border-emerald-400 flex-shrink-0"></div>
       </header>
 
       {/* Main Content Area */}
@@ -90,7 +95,9 @@ const Plan = () => {
 
           {/* Grid */}
           {isLoading ? (
-            <div className="text-center text-gray-500 py-10">Loading options...</div>
+            <div className="text-center text-gray-500 py-10">
+              Loading options...
+            </div>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {planOptions.map((option) => (
@@ -102,9 +109,7 @@ const Plan = () => {
                 >
                   <div className="mb-4">{ICONS[option.icon]}</div>
 
-                  <h3 className="text-xl font-semibold mb-1">
-                    {option.name}
-                  </h3>
+                  <h3 className="text-xl font-semibold mb-1">{option.name}</h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
                     {option.description}
                   </p>
@@ -124,9 +129,21 @@ const Plan = () => {
           {/* Inputs Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <QuickStartInput placeholder="Destination" icon={FaMapMarkedAlt} />
-            <QuickStartInput placeholder="Dates" icon={FaCalendarAlt} type="date" />
-            <QuickStartInput placeholder="Travelers" icon={FaUsers} type="number" />
-            <QuickStartInput placeholder="Budget" icon={FaDollarSign} type="number" />
+            <QuickStartInput
+              placeholder="Dates"
+              icon={FaCalendarAlt}
+              type="date"
+            />
+            <QuickStartInput
+              placeholder="Travelers"
+              icon={FaUsers}
+              type="number"
+            />
+            <QuickStartInput
+              placeholder="Budget"
+              icon={FaDollarSign}
+              type="number"
+            />
           </div>
 
           {/* Action Buttons */}
@@ -140,7 +157,7 @@ const Plan = () => {
             <button
               className="px-8 py-3 font-bold text-base rounded-lg transition-colors
                          bg-emerald-500 hover:bg-emerald-400 text-black"
-              onClick={() => navigate('/plan/create')}
+              onClick={() => navigate("/plan/create")}
             >
               Start Trip
             </button>
