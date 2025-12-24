@@ -1,9 +1,9 @@
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
-const AiLayout = ({ children, currentStep = 1 }) => {
+const AiLayout = ({ children, title,HeaderTitle, subtitle,currentStep = 1 }) => {
   const navigate = useNavigate();
-  const location = useLocation();
+
 
   const options = [
     { id: 1, name: "1. Vibe & constraints", path: '/AiPlan' },
@@ -27,8 +27,8 @@ const AiLayout = ({ children, currentStep = 1 }) => {
       {/* 1. Top Header */}
       <header className="max-w-7xl mx-auto flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl font-bold">Plan with AI</h1>
-          <p className="text-gray-400 text-sm">Tell us your vibe and constraints; we'll draft a tailored itinerary.</p>
+          <h1 className="text-2xl font-bold">{title}</h1>
+          <p className="text-gray-400 text-sm">{subtitle}</p>
         </div>
         
 
@@ -45,7 +45,7 @@ const AiLayout = ({ children, currentStep = 1 }) => {
             onClick={handleNext}
             className={`font-semibold p-2 px-6 rounded-xl transition-colors ${
               currentStep === 3 
-              ? 'bg-emerald-500 text-white' // Final step style
+              ? 'bg-emerald-500 text-white' 
               : 'bg-emerald-800 text-emerald-100 hover:bg-emerald-700'
             }`}
           >
@@ -58,13 +58,13 @@ const AiLayout = ({ children, currentStep = 1 }) => {
         {/* 2. Step Header Section */}
         <section className="border border-emerald-900/30 p-6 rounded-xl mb-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Describe your ideal trip</h2>
+            <h2 className="text-xl font-semibold">{HeaderTitle}</h2>
             <span className="bg-emerald-900 text-emerald-400 text-xs px-3 py-1 rounded-full border border-emerald-500/30">
               Step {currentStep} of 3
             </span>
           </div>
           
-          {/* Changed from <Link> to <div> as Link requires a 'to' prop */}
+         
           <div className="flex gap-3">
             {options.map((item) => (
               <div 
@@ -80,7 +80,7 @@ const AiLayout = ({ children, currentStep = 1 }) => {
           </div>
         </section>
 
-        {/* 3. Main Content Grid */}
+        {/* 3. Main */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <section className="lg:col-span-7">
             {children}

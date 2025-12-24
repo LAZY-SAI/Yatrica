@@ -1,5 +1,5 @@
 import { FaHome, FaCompass, FaPlusSquare, FaUser } from "react-icons/fa";
-import { LuSlidersHorizontal } from "react-icons/lu";
+// import { LuSlidersHorizontal } from "react-icons/lu";
 import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {

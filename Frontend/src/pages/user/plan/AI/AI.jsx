@@ -13,14 +13,17 @@ const AI = () => {
     { id: 4, name: "Nature & Hike" },
     { id: 5, name: "culture & museum" },
   ];
- 
+
   return (
-    <AiLayout currentStep={1}>
+    <AiLayout currentStep={1}
+    subtitle={"Tell us Your Vibe & Constraints"}
+    title={"Plan with Ai"}
+    HeaderTitle={"Describe Your Ideal Trip"}>
       <div className="space-y-6 col-span-6">
         <section className="w-full">
           <h2 className=" font-bold text-lg">Your Vibe & Constraints</h2>
           <p className="text-m text-gray-500">
-            We'll use this to shape the pace, neighbourhood picks & daily rythm{" "}
+            We'll use this to shape the pace, neighbourhood picks & daily rythm
           </p>
         </section>
 
@@ -52,7 +55,6 @@ const AI = () => {
 
         <div className="grid grid-cols-2">
           <div>
-          
             <h2 className="text-xl font-semibold mb-2">Travelers</h2>
             <div className="flex gap-3  items-center">
               <div>
@@ -97,17 +99,26 @@ const AI = () => {
               </div>
             </div>
           </div>
-          
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold text-lg">Pace</label>
-          <input
-            type="text"
-            placeholder="e.g 1-2 key things per day"
-            className="w-full bg-gray-900 border border-zinc-800 p-2 rounded-lg focus:outline-none focus:border-emerald-500"
-          />
-        </div>
-        </div>
 
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold text-lg">Pace</label>
+            <input
+              type="text"
+              placeholder="e.g 1-2 key things per day"
+              className="w-full bg-gray-900 border border-zinc-800 p-2 rounded-lg focus:outline-none focus:border-emerald-500"
+            />
+
+
+             <label className="font-semibold text-lg">Budget</label>
+            <input
+              type="text"
+              placeholder="NPR"
+              className="w-full bg-gray-900 border border-zinc-800 p-2 rounded-lg focus:outline-none focus:border-emerald-500"
+            />
+          </div>
+
+          
+        </div>
 
         <div className="flex flex-col gap-2">
           <label className="font-semibold text-lg">Must Do's</label>
