@@ -8,6 +8,7 @@ import Footer from "./section/Footer";
 import Userdash from "./pages/user/UserDash";
 import UserRoutes from "./routes/UserRoute"; 
 import AdminRoutes from "./routes/AdminRoute";
+import AiRoute from "./routes/AiRoute";
 import Nav from "./components/Nav";
 import Discover from "./pages/user/discover/Discover";
 import Post from "./pages/user/post/Post";
@@ -33,7 +34,9 @@ const App = () => {
     "/plan/set",
     "/plan/preview",
     "/plan/myplan",
-    "/plan/AiPlan"
+    "/AiPlan",
+    "/AiPlan/preference",
+    "/AiPlan/Review"
   ];
   
   const showNavRoutes = [
@@ -68,7 +71,7 @@ const App = () => {
           
           {/* User planning routes with wildcard */}
           <Route path="/plan/*" element={<UserRoutes />} />
-          
+          <Route path="/AiPlan/*" element={<AiRoute />} />
           <Route path="/posts" element={<Post />} />
           <Route path="/profile" element={<Profile />} />
           

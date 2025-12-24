@@ -48,7 +48,7 @@ const Plan = () => {
         name: "Plan with AI",
         icon: "brain",
         description:"Tell us the vibe and constraints; get a tailored itinerary",
-          Link:"/plan/AiPlan"
+          Link:"/AiPlan"
       },
       {
         id: 3,

@@ -4,7 +4,7 @@ import Create from '../pages/user/plan/Create';
 import SetTripDetails from '../pages/user/plan/Set'
 import Preview from '../pages/user/plan/Preview'
 import UserPlan from '../pages/user/plan/UserPlan'
-import Ai from '../pages/user/plan/AI/AI'
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -17,7 +17,7 @@ const UserRoutes = () => {
       <Route path="set" element={<SetTripDetails />}/>
       <Route path="preview" element={<Preview/>}/>
       <Route path="myplan" element={<UserPlan/>}/>
-      <Route path="AiPlan" element={<Ai/>}/>
+     
     </Routes>
   );
 };
