@@ -13,7 +13,7 @@ import Nav from "./components/Nav";
 import Discover from "./pages/user/discover/Discover";
 import Post from "./pages/user/post/Post";
 import Profile from "./pages/user/profile/Profile";
-
+import Loading from './pages/loading.jsx'
 const App = () => {
   const location = useLocation();
 
@@ -36,7 +36,8 @@ const App = () => {
     "/plan/myplan",
     "/AiPlan",
     "/AiPlan/preference",
-    "/AiPlan/Review"
+    "/AiPlan/Review",
+    "/AiPlan/Final"
   ];
   
   const showNavRoutes = [
@@ -74,7 +75,9 @@ const App = () => {
           <Route path="/AiPlan/*" element={<AiRoute />} />
           <Route path="/posts" element={<Post />} />
           <Route path="/profile" element={<Profile />} />
-          
+
+          {/*Loader*/}
+          <Route path={"loading"} element={<Loading/>}/>
           {/* Admin routes with wildcard - all admin routes handled by AdminRoutes */}
           <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>

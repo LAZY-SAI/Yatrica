@@ -5,13 +5,22 @@ const Parallax = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    let timeout;
+
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        setIsMobile(window.innerWidth < 768);
+      }, 150);
     };
 
-    checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    checkMobile();
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", checkMobile);
+    };
   }, []);
 
   return (
@@ -39,6 +48,7 @@ const Parallax = () => {
           alt="Jungle layer 1"
           className="absolute inset-0 w-full h-full object-cover -z-30"
           draggable="false"
+          loading="lazy"
         />
 
         {/* Jungle 2 */}
@@ -47,6 +57,7 @@ const Parallax = () => {
           alt="Jungle layer 2"
           className="absolute inset-0 w-full h-full object-cover -z-20"
           draggable="false"
+          loading="lazy"
         />
 
         {/* Jungle 3 */}
@@ -55,6 +66,7 @@ const Parallax = () => {
           alt="Jungle layer 3"
           className="absolute inset-0 w-full h-full object-cover -z-10 md:ml-20 ml-4"
           draggable="false"
+          loading="lazy"
         />
 
         {/* Jungle 4 */}
@@ -63,6 +75,7 @@ const Parallax = () => {
           alt="Jungle layer 4"
           className="absolute inset-0 w-full h-full object-cover z-0"
           draggable="false"
+          loading="lazy"
         />
 
         {/* Jungle 5 */}
@@ -71,6 +84,7 @@ const Parallax = () => {
           alt="Jungle layer 5"
           className="absolute inset-0 w-full h-full object-cover z-10"
           draggable="false"
+          loading="lazy"
         />
 
         {/* Foreground Man */}
@@ -79,6 +93,8 @@ const Parallax = () => {
           alt="Man on mountain"
           className="absolute inset-0 w-full h-full object-cover z-20"
           draggable="false"
+          loading="lazy"
+
         />
 
         {/* Centered text overlay */}

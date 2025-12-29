@@ -1,0 +1,106 @@
+{
+    "trip_metadata": {
+        "trip_id": "LIS-2025-05-12",
+        "destination": "Lisbon, Portugal",
+        "status": "confirmed",
+        "dates": {
+            "start": "2025-05-12",
+            "end": "2025-05-17",
+            "total_nights": 5
+        },
+        "travelers": {
+            "adults": 2,
+            "type": "Couple/Pair"
+        },
+        "budget": {
+            "level": "Medium",
+            "range_per_day": "€150–€220",
+            "currency": "EUR"
+        },
+        "optimization_tags": [
+            "Cafés & coffee culture",
+            "Casual local restaurants",
+            "Hidden neighborhoods",
+            "Later morning starts",
+            "3-4 anchored stops per day",
+            "Low-commute clusters",
+            "Backup dinner options"
+        ],
+        "structural_choices": [
+            "Keep commute times low",
+            "Include backup options",
+            "Mix of bookable & drop-in spots"
+        ]
+    },
+    "itinerary": [
+        {
+            "day": 1,
+            "title": "Arrival",
+            "theme": "Settle in and get a first feel for the city",
+            "pace": "Easy pace - no fixed timings",
+            "highlights": ["Check-in", "Neighborhood stroll", "Local dinner"],
+            "activities": [
+                {
+                    "time": null,
+                    "activity": "Check in & short neighborhood stroll",
+                    "notes": "Kept flexible for travel day"
+                },
+                {
+                    "time": "Evening",
+                    "activity": "Simple dinner nearby",
+                    "notes": "Focus on proximity to accommodation"
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "title": "Baixa & Chiado",
+            "theme": "Cafés, viewpoints, and relaxed walking loop",
+            "stats": {
+                "planned_stops": 4,
+                "estimated_steps": 18000
+            },
+            "activities": [
+                {
+                    "time": "10:30",
+                    "activity": "Coffee & bakery start",
+                    "type": "Food/Drink"
+                },
+                {
+                    "time": "13:00",
+                    "activity": "Casual lunch in Chiado",
+                    "notes": "Local spots with vegetarian-friendly options"
+                },
+                {
+                    "time": "17:30",
+                    "activity": "Miradouro golden-hour stop",
+                    "notes": "Short uphill walk with tram alternative"
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "title": "Belém Waterfront",
+            "theme": "Waterfront walk, cafés, and museums",
+            "stats": {
+                "planned_stops": 3,
+                "commute_level": "Low"
+            },
+            "activities": [
+                {
+                    "time": "11:00",
+                    "activity": "Tram to Belém & riverside stroll"
+                },
+                {
+                    "time": "13:30",
+                    "activity": "Pastéis & coffee stop",
+                    "notes": "Primary bakery + backup in walking distance"
+                },
+                {
+                    "time": "16:00",
+                    "activity": "Museum or garden time"
+                }
+            ]
+        }
+    ]
+}

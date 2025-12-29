@@ -1,7 +1,7 @@
 import { FaArrowLeft } from 'react-icons/fa';
 import {  useNavigate } from 'react-router-dom';
 
-const AiLayout = ({ children, title,HeaderTitle, subtitle,currentStep = 1 }) => {
+const AiLayout = ({ children, title,HeaderTitle, subtitle,currentStep = 1, onFinish }) => {
   const navigate = useNavigate();
 
 
@@ -16,10 +16,11 @@ const AiLayout = ({ children, title,HeaderTitle, subtitle,currentStep = 1 }) => 
     const nextStep = options.find(opt => opt.id === currentStep + 1);
     if (nextStep) {
       navigate(nextStep.path);
-    } else {
-     
-      console.log("Final step reached!");
+    } else if(onFinish) {
+        onFinsh();
+
     }
+    return nextStep;
   };
 
   return (
