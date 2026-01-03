@@ -4,7 +4,7 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import UserFoot from '../../../components/User/user.footer'
+import UserFoot from '../../../../components/User/user.footer'
 const Create = () => {
   const navigate = useNavigate();
   const [suggestion, setSuggestion] = useState([]);

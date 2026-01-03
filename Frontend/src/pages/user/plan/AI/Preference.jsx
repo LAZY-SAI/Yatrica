@@ -19,19 +19,24 @@ const Preference = () => {
   ];
 
   return (
-    <AiLayout currentStep={2} title="Preferences" subtitle="Fine-tune your experience" HeaderTitle={"Tell Us What You Love"}>
-    
+    <AiLayout
+      currentStep={2}
+      title="Preferences"
+      subtitle="Fine-tune your experience"
+      HeaderTitle={"Tell Us What You Love"}
+    >
       <div className="space-y-10 max-w-2xl">
-        
         <header>
-          <h2 className="font-bold text-2xl mb-1">What should we prioritize?</h2>
+          <h2 className="font-bold text-2xl mb-1">
+            What should we prioritize?
+          </h2>
           <p className="text-gray-400">Choose as many as you like</p>
         </header>
 
         {/* Experiences Section */}
         <section>
           <h3 className="text-gray-300 font-medium mb-4">Experiences</h3>
-       
+
           <div className="flex flex-wrap gap-3">
             {options.map((item) => (
               <button

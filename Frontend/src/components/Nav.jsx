@@ -4,7 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
   const location = useLocation();
-
+  const isActiveLink = (linkpath)=>{
+    return location.pathname === linkpath
+  }
   const menu = [
     { name: "Home", logo: <FaHome />, path: "/userdash" },
     { name: "Discover", logo: <FaCompass />, path: "/discover" },
@@ -33,6 +35,7 @@ const Nav = () => {
     { name: "Profile", logo: <FaUser />, path: "/profile" },
   ];
 
+  
   return (
     <div className="w-full rounded-xl shadow-2xl flex items-center backdrop-blur-md sticky bottom-0">
       <div className="flex flex-row justify-around w-full">

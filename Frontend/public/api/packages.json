@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "title": "Kathmandu & food weekend",
+    "price": "NPR 22,500",
+    "subtitle": "3D-2N, small group(max-10)",
+    "vibes": ["culture & temples", "street food", "Guided walking Tour"]
+  },
+  {
+    "id": 2,
+    "title": "Pokhara lakeside escape",
+    "subtitle": "4D-5N",
+    "price": "NPR 34,900",
+    "vibes": ["Lake view", "Relaxed pace", "Adventure add-ons"]
+  },
+  {
+    "id": 3,
+    "title": "Annapurna Base Camp Trek",
+    "subtitle": "6D-7N",
+    "price": "NPR 18000",
+    "vibes": ["Himalayan Views", "Moderate Trek", "Teahouse Stays"]
+  },
+  {
+    "id": 4,
+    "title": "Chitwan jungle safaria",
+    "subtitle": "",
+    "price": "NPR 27,500",
+    "vibes": ["Jeep & canoe", "Family-friendly"]
+  },
+  {
+    "id": 5,
+    "title": "Lumbini Sprititual retreat",
+    "subtitle": "2D fullday",
+    "price": "NPR 10000",
+    "vibes": ["pilgrimage", "MindFulness"]
+  },
+
+  {
+    "id": 6,
+    "title": "Everest panarama flight & stay",
+    "subtitle": "2 days | Scenic flight + Kathaham)",
+    "price": "NPR 29,500",
+    "vibes": ["Short wrews", "Scenic flight"]
+  }
+]

@@ -55,6 +55,7 @@ const Plan = () => {
         name: "View Tour Packages",
         icon: "suitcase",
         description: "Browse curated trips from trusted partners",
+        Link:'/plan/packages'
       },
     ];
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaArrowLeft, FaPlus, FaMinus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import UserFoot from '../../../components/User/user.footer'
+import UserFoot from '../../../../components/User/user.footer'
 const SetTripDetails = () => {
   const navigate = useNavigate();
   const [adults, setAdults] = useState(2);

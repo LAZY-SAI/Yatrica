@@ -1,9 +1,9 @@
 import Lottie from "lottie-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Animation from "../../public/assets/animation/globe.json";
+import Animation from "../Animation/globe.json";
 
-const Loading = () => {
+const Loading = ({onComplete}) => {
     const navigate = useNavigate();
     const [statusIndex, setStatusIndex] = useState(0);
 
@@ -31,9 +31,9 @@ const Loading = () => {
 
                 const data = await res.json();
 
-                navigate("/AiPlan/Final", {
-                    state: { plan: data },
-                });
+                setTimeout(()=>{
+                    onComplete(data)
+                },2000)
             } catch (error) {
                 console.error(error);
             }

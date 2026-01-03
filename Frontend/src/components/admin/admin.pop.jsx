@@ -4,7 +4,7 @@ import Model from '../Model'
 import { useState } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 
-const API_URI = import.meta.env.VITE_API_URI; 
+const BASE_URI = import.meta.env.VITE_BASE_URI;
 const Popup = ({ isOpen, onClose, onSave }) => {
 
   const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ const Popup = ({ isOpen, onClose, onSave }) => {
     e.preventDefault();
     
 
-    const res = await fetch(`${API_URI}/admin-destination`,{
+    const res = await fetch(`${BASE_URI}/api/destinations`,{
       method:"POST",
       headers:{
         "content-type":"application/json"

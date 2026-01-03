@@ -1,18 +1,12 @@
 import {useState} from "react";
 import AiLayout from "./AiLayout"
-import Loading from '../../../loading.jsx'
+
 const Review = () => {
-    const [isGenerating, setIsGenerating] = useState(true)
+    const [isGenerating, setIsGenerating] = useState(false)
   const days = [
     { day: 1, title: "Arrival", theme: "Settle in...", activities: "Check-in, neighborhood stroll..." },
     { day: 2, title: "Baixa & Chiado", theme: "Cafes & Viewpoints", activities: "10:30 Coffee, 13:00 Lunch..." }
   ];
-    const handleFinish = ()=>{
-        setIsGenerating(true)
-    }
-    if(isGenerating){
-        return <Loading/>
-    }
 
   return (
       <AiLayout
@@ -20,7 +14,7 @@ const Review = () => {
           title="Review your AI itinerary"
           subtitle="Check the day-by-day plan based on your vibe before we lock things in."
           HeaderTitle="Here's what we've drafted for you"
-          onFinish={handleFinish}
+
       >
         <div className="space-y-6">
           {days.map((item) => (
