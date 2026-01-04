@@ -2,7 +2,7 @@ import {Router } from 'express'
 
 const destRoute = Router()
 
-destRoute.post('/admin-destination',(req, res)=>{
+destRoute.post('/api/destinations',(req, res)=>{
     const{title, description, place, date, region,Map}= req.body;
     console.log("data received:",req.body)
 
