@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "title": "Kathmandu long weekend",
+    "subtitle": "Kathmandu · 3 days · Friends trip",
+    "dates": "Apr 12 - Apr 14",
+    "travelers": "4 adults",
+    "budget": "NPR 80,000 total",
+    "status": "Upcoming"
+  },
+  {
+    "id": 2,
+    "title": "Pokhara lakes & paragliding",
+    "subtitle": "Pokhara · 4 days · Couple",
+    "dates": "May 3 - May 6",
+    "travelers": "2 adults",
+    "budget": "NPR 95,000 total",
+    "status": "Upcoming"
+  },
+  {
+    "id": 3,
+    "title": "Chitwan family safari",
+    "subtitle": "Chitwan · 3 days · Family",
+    "dates": "Jun 21 - Jun 23",
+    "travelers": "2 adults, 2 kids",
+    "budget": "NPR 70,000 total",
+    "status": "Upcoming"
+  },
+
+  {
+    "id": 4,
+    "title": "Everest view flight & stay",
+    "subtitle": "Kathmandu · 2 days · Friends trip",
+    "dates": "Feb 10 - Feb 11",
+    "travelers": "3 adults",
+    "budget": "NPR 65,000 spent",
+    "status": "Completed",
+    "badge": "Trip finished"
+  }
+]

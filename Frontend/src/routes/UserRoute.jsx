@@ -3,7 +3,7 @@ import Plan from '../pages/user/plan/Plan';
 import Create from '../pages/user/plan/create/Create';
 import SetTripDetails from '../pages/user/plan/create/Set'
 import Preview from '../pages/user/plan/create/Preview'
-import UserPlan from '../pages/user/plan/UserPlan'
+import MyPlan from '../pages/user/plan/MyPlan'
 import Package from '../pages/user/plan/package/Package';
 const UserRoutes = () => {
   return (
@@ -16,7 +16,7 @@ const UserRoutes = () => {
       <Route path="create" element={<Create />} />
       <Route path="set" element={<SetTripDetails />}/>
       <Route path="preview" element={<Preview/>}/>
-      <Route path="myplan" element={<UserPlan/>}/>
+      <Route path="myplan" element={<MyPlan/>}/>
 
 
       {/**Tour packages path */}
