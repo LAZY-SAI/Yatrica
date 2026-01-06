@@ -23,7 +23,7 @@ const SettingRow = ({
   valueColor = "text-gray-400",
   titleClass = "text-white",
 }) => (
-  <div className="flex justify-between items-center py-3 border-b border-gray-700/50 last:border-b-0">
+  <div className="flex justify-between items-center p-4 border-b border-gray-700/50 last:border-b-0">
     <div className="flex items-start">
     
       <div className="w-5 h-5 mr-3 mt-1 text-emerald-500">
@@ -48,12 +48,12 @@ const Profile = () => {
   const SECTION_PADDING = "p-4 sm:p-6";
 
   return (
-    <div className="flex justify-center p-4 min-h-screen  text-white">
+    <div className="flex justify-center p-10 min-h-screen  text-white">
 
       <div className="grid grid-col-1 lg:grid-cols-[240px_1fr] max-w-7xl w-full gap-8">
         {/* Sidebar */}
-        <aside className="hidden lg:block">
-          <div className={`${CARD_BG_COLOR} mt-2 p-3 rounded-2xl h-fit w-full`}>
+        <aside className="hidden lg:block top-3 h-1 sticky">
+          <div className={`${CARD_BG_COLOR} mt-2 p-3 rounded-2xl h-fit w-full `}>
             <Pnav />
           </div>
         </aside>
@@ -70,7 +70,7 @@ const Profile = () => {
 
           {/* User Profile Card */}
           <div
-            className={`${CARD_BG_COLOR} flex flex-col sm:flex-row items-start sm:items-center ${SECTION_PADDING} rounded-2xl gap-3 mb-6 justify-between`}
+            className={`${CARD_BG_COLOR} flex flex-col sm:flex-row items-start sm:items-center scroll-mt-10 ${SECTION_PADDING} rounded-2xl gap-3 mb-6 justify-between`}
           >
             <div className="flex items-center gap-4">
               {/* Profile Pic */}
@@ -89,7 +89,8 @@ const Profile = () => {
           </div>
 
           {/* --- Account Section --- */}
-          <section className={`${CARD_BG_COLOR} mt-5 ${SECTION_PADDING} rounded-xl`}>
+          <section className={`${CARD_BG_COLOR} mt-5 ${SECTION_PADDING} rounded-xl scroll-mt-10`}
+          id="4">
             <p className="font-semibold text-base mb-1">Account</p>
             <p className="text-gray-500 text-sm mb-4">Basic account and sign-in details</p>
 
@@ -119,7 +120,8 @@ const Profile = () => {
           </section>
 
           {/* --- Preferences Section --- */}
-          <section className={`${CARD_BG_COLOR} ${SECTION_PADDING} mt-4 rounded-xl`}>
+          <section className={`${CARD_BG_COLOR} ${SECTION_PADDING} mt-4 rounded-xl scroll-mt-10`}
+          id="5">
             <p className="font-semibold text-base mb-1">Preferences</p>
             <p className="text-gray-500 text-sm mb-4">
               Language, currency, and trip defaults.
@@ -150,7 +152,8 @@ const Profile = () => {
           </section>
 
           {/* --- Privacy & Security Section --- */}
-          <section className={`${CARD_BG_COLOR} rounded-xl mt-4 ${SECTION_PADDING}`}>
+          <section className={`${CARD_BG_COLOR} rounded-xl mt-4 scroll-mt-10 ${SECTION_PADDING}`} 
+          id="3">
             <p className="font-semibold text-base mb-1">Privacy & Security</p>
             <p className="text-gray-500 text-sm mb-4">
               Control who can see your profile and keep it secure.
@@ -183,7 +186,7 @@ const Profile = () => {
         
 
           {/* Action Buttons */}
-          <div className="flex justify-end items-center mt-6 py-4">
+          <div className="flex justify-end items-center  py-4">
             <button className="text-white px-4 py-2 rounded-xl font-semibold hover:opacity-80 transition duration-200 mr-4">
               Cancel
             </button>

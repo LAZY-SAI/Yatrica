@@ -4,7 +4,12 @@ import { IoIosHelpBuoy } from "react-icons/io";
 // import { useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
-const NavItem = ({ name, logo, isActive, onClick }) => {
+const NavItem = ({ name, logo, isActive, onClick ,sectionId}) => {
+  const element = document.getElementById(sectionId)
+  if(element)
+  {
+    element.scrollIntoView({behavior:"smooth", block:"start"})
+  }
   const baseClasses =
     "flex items-center text-lg p-2 gap-3 rounded-lg cursor-pointer transition-colors ";
 
@@ -33,6 +38,7 @@ const ProflleNav = () => {
       id: 1,
       name: "Help center",
       logo: <IoIosHelpBuoy />,
+      sectionId:1,
       Link: "/help",
       category: "Account",
     },
@@ -41,12 +47,14 @@ const ProflleNav = () => {
       name: "Contact support",
       logo: <FaRegComment />,
       Link: "/contact",
+      sectionId:2,
       category: "Account",
     },
     {
       id: 3,
       name: "Safety & trust",
       logo: <FaUserShield />,
+      sectionId:3,
       Link: "/safety",
       category: "Account",
     },
@@ -54,6 +62,7 @@ const ProflleNav = () => {
       id: 4,
       name: "Profile setting",
       logo: <FaRegUser />,
+      sectionId:4,
       Link: "/setting",
       category: "Account settings",
     },
@@ -62,6 +71,7 @@ const ProflleNav = () => {
       name: "App preference",
       logo: <CiSettings />,
       Link: "/preference",
+      sectionId:5,
       category: "Account settings",
     },
   ];
@@ -94,6 +104,7 @@ const ProflleNav = () => {
                 name={item.name}
                 logo={item.logo}
                 isActive={isActiveLink(item.Link)}
+                sectionId={item.sectionId}
               />
             ))}
           </div>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
 import { FiMapPin, FiShare2, FiExternalLink } from "react-icons/fi";
-
+import PostPop from "./PostPop";
 const Post = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+ const [isPopOpen, setIsPopOpen] = useState(false);
   useEffect(() => {
     setIsLoading(true);
 
@@ -56,7 +56,9 @@ const Post = () => {
               </button>
             </div>
           </div>
-          <button className="bg-emerald-700 p-2 rounded-lg text-white px-4 py-2  font-semibold flex items-center hover:bg-teal-700 transition-colors">
+          <button 
+          onClick={() => { setIsPopOpen(true) }} 
+          className="bg-emerald-700 p-2 rounded-lg text-white px-4 py-2  font-semibold flex items-center hover:bg-teal-700 transition-colors">
             <FaEdit className="mr-2" /> Post
           </button>
         </div>
@@ -156,6 +158,12 @@ const Post = () => {
       <nav className="fixed bottom-0 left-0 right-0 border-t border-gray-800 py-3 px-4 shadow-lg lg:hidden">
         <div className="max-w-7xl mx-auto flex justify-around items-center text-gray-400 text-sm"></div>
       </nav>
+
+
+      <PostPop
+      isOpen={isPopOpen}
+      onClose={()=>setIsPopOpen(false)}
+      />
     </div>
   );
 };

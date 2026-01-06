@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-
-// Card component remains mostly the same, just fixed 'itmes' typo to 'items'
+import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 const Cards = ({ crd }) => {
   return (
     <div className="p-3 bg-gray-800 items-center min-h-48 rounded-xl overflow-hidden flex flex-col">
@@ -9,7 +9,7 @@ const Cards = ({ crd }) => {
           {crd.title}
         </h2>
         <p className="text-gray-400 text-xs mb-4">{crd.subtitle}</p>
-        
+
         <div className="grid grid-cols-2 gap-3 mb-4 w-full">
           <div className="flex flex-col gap-1">
             <p className="font-bold text-sm text-white">Dates</p>
@@ -37,6 +37,7 @@ const Cards = ({ crd }) => {
 };
 
 const MyPlan = () => {
+  const navigate = useNavigate()
   const [userPlan, setUserPlan] = useState([]);
 
   const [filter, setFilter] = useState("Upcoming");
@@ -50,7 +51,7 @@ const MyPlan = () => {
     fetch("/api/userplan.json")
       .then((res) => res.json())
       .then((data) => setUserPlan(data));
-  }, []); 
+  }, []);
 
   // 2. Filter the plans based on the selected state
   const filteredPlans = userPlan.filter(
@@ -60,11 +61,18 @@ const MyPlan = () => {
   return (
     <div className="min-h-screen p-8  text-white">
       <div className="max-w-7xl mx-auto py-3">
-        <header className="flex flex-col">
-          <h2 className="font-bold text-2xl">My Plans</h2>
+        <header className="flex gap-4">
+          <button 
+          onClick={()=>navigate(-1)}
+          className="mt-1 p-2 h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-800 transition-colors border border-gray-700">
+            <FaArrowLeft size={14} />
+          </button>
+         <div>
+           <h2 className="font-bold text-2xl">My Plans</h2>
           <p className="text-gray-400">
             All the trips you have created are saved here
           </p>
+         </div>
         </header>
 
         {/* 3. Filter Buttons */}
@@ -72,7 +80,7 @@ const MyPlan = () => {
           {statusOptions.map((item) => (
             <button
               key={item.id}
-              onClick={() => setFilter(item.name)} 
+              onClick={() => setFilter(item.name)}
               className={`px-6 py-2 rounded-xl text-sm font-medium transition-all ${
                 filter === item.name
                   ? "bg-emerald-600 text-white shadow-lg"
@@ -84,7 +92,6 @@ const MyPlan = () => {
           ))}
         </div>
 
-       
         <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredPlans.length > 0 ? (
             filteredPlans.map((item) => <Cards key={item.id} crd={item} />)

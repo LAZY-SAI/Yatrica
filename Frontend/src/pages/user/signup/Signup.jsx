@@ -2,7 +2,7 @@ import { Children } from "react";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const API_URI = import.meta.env.VITE_API_URI;
 
 // InputField Component
@@ -14,11 +14,11 @@ const InputField = ({
   icon,
   name,
   error,
+  suffix,
 }) => (
   <div className="relative w-full max-w-xs h-16">
-    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-      {icon}
-    </span>
+    <span className="absolute left-3 top-5 text-gray-400">{icon}</span>
+
     <input
       type={type}
       placeholder={placeholder}
@@ -26,8 +26,14 @@ const InputField = ({
       value={value}
       onChange={onChange}
       name={name}
-      className="w-full pl-10 pr-4 py-3 border-b border-gray-300 focus:ring-0 focus:border-indigo-600 outline-none text-gray-700 transition duration-200 text-base"
+      className="w-full pl-10 pr-10 py-3 border-b border-gray-300 focus:ring-0 focus:border-indigo-600 outline-none text-gray-700 transition duration-200 text-base"
     />
+
+    {suffix && (
+      <span className="absolute right-3 top-5 cursor-pointer text-gray-500 hover:text-indigo-600 transition-colors">
+        {suffix}
+      </span>
+    )}
 
     {error && (
       <p className="text-red-500 text-sm mt-1 text-left absolute w-full top-full">
@@ -57,6 +63,7 @@ const Signup = () => {
   const [interactionDisable, setIntercationDisable] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const [showPass, setShowPass] = useState(false);
   const handleSlide = (targetSide) => {
     if (imgRef.current) {
       imgRef.current.classList.remove("slide-right", "slide-left");
@@ -77,7 +84,7 @@ const Signup = () => {
       setSlideDirection(null);
       setIntercationDisable(false);
       setErrors({}); // Clear errors on slide change
-      
+
       // Clear all input states when sliding for a fresh form view
       setLoginEmail("");
       setLoginPassword("");
@@ -170,27 +177,30 @@ const Signup = () => {
         }),
       });
 
-      // Handle non-200 status codes 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.message || `Login failed with status: ${res.status}`);
+        throw new Error(
+          errorData.message || `Login failed with status: ${res.status}`
+        );
       }
 
-      // Success path 
+      // Success path
       const data = await res.json();
       toast.success(data.message || "Logged-in Successfully!");
 
       setTimeout(() => {
-         notifyLogin(); 
+        notifyLogin();
         navigate("/userdash");
       }, 2000);
-      
     } catch (error) {
-   
       console.error("Login Error:", error.message);
-      toast.error(error.message || "Login failed due to a network error. Please try again.", {
-        style: { backgroundColor: 'rgb(239, 68, 68)', color: 'white' }
-      });
+      toast.error(
+        error.message ||
+          "Login failed due to a network error. Please try again.",
+        {
+          style: { backgroundColor: "rgb(239, 68, 68)", color: "white" },
+        }
+      );
     }
   };
 
@@ -216,26 +226,29 @@ const Signup = () => {
         }),
       });
 
-      // Handle non-201 status codes (e.g., 409 Conflict, 500 Server Error)
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.message || `Sign-up failed with status: ${res.status}`);
+        throw new Error(
+          errorData.message || `Sign-up failed with status`
+        );
       }
-      
+
       const data = await res.json();
       toast.success(data.message || "Signed-up Successfully! Redirecting...");
 
       setTimeout(() => {
-         notifySignup(); 
+        notifySignup();
         navigate("/admindash");
       }, 2000);
-
     } catch (error) {
- 
       console.error("Signup Error:", error.message);
-      toast.error(error.message || "Sign-up failed due to a network error. Please try again.", {
-        style: { backgroundColor: 'rgb(239, 68, 68)', color: 'white' }
-      });
+      toast.error(
+        error.message ||
+          "Sign-up failed due to a network error. Please try again.",
+        {
+          style: { backgroundColor: "rgb(239, 68, 68)", color: "white" },
+        }
+      );
     }
   };
 
@@ -288,14 +301,23 @@ const Signup = () => {
                   error={errors.email}
                 />
                 <InputField
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder="Password"
                   name="password"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                   icon="🔒"
                   error={errors.password}
+                  suffix={
+                    <button
+                      type="button"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {showPass ? <FaEyeSlash/> : <FaEye/>}
+                    </button>
+                  }
                 />
+
                 <button
                   type="submit"
                   className="w-full max-w-xs px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-indigo-700 mt-4"
@@ -372,14 +394,23 @@ const Signup = () => {
                   error={errors.signupEmail}
                 />
                 <InputField
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder="Password"
                   name="signupPassword"
                   value={signupPassword}
                   onChange={(e) => setSignupPassword(e.target.value)}
                   icon="🔒"
                   error={errors.signupPassword}
+                  suffix={
+                    <button
+                      type="button"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {showPass ? <FaEyeSlash/> : <FaEye/>}
+                    </button>
+                  }
                 />
+
                 <button
                   type="submit"
                   className="w-full max-w-xs px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-md transition duration-300 hover:bg-indigo-700 mt-4"

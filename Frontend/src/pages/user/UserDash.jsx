@@ -1,7 +1,7 @@
 
 import { FaSearch , FaHeart} from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 
 const UserDash = () => {
@@ -62,7 +62,7 @@ const UserDash = () => {
             <div className="hidden lg:flex items-center ml-8 gap-6 text-white text-sm font-medium">
                 
                
-                <span>My Plan</span>
+                <span onClick={()=>navigate('/plan/myplan')}>My Plan</span>
                
             </div>
             {/* Profile */}

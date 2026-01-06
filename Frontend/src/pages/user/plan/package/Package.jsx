@@ -1,5 +1,6 @@
 import { FaArrowLeft, FaStar } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ pkg }) => {
   return (
@@ -54,6 +55,7 @@ const Card = ({ pkg }) => {
 };
 
 const Package = () => {
+  const navigate = useNavigate()
   const [packages, setPackages] = useState([]);
 
   useEffect(() => {
@@ -72,7 +74,8 @@ const Package = () => {
         {/* Header */}
         <header className="flex justify-between items-start mb-10">
           <div className="flex gap-4">
-            <button className="mt-1 p-2 h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-800 transition-colors border border-gray-700">
+            <button 
+             onClick={()=>navigate(-1)}className="mt-1 p-2 h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-800 transition-colors border border-gray-700">
               <FaArrowLeft size={14} />
             </button>
             <div>
@@ -82,7 +85,7 @@ const Package = () => {
               </p>
             </div>
           </div>
-          <button className="text-gray-400 text-sm font-medium hover:text-white">Back to planner</button>
+        
         </header>
 
         {/* Sub-header Actions */}
