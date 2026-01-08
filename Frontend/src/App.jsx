@@ -13,7 +13,7 @@ import Nav from "./components/Nav";
 import Discover from "./pages/user/discover/Discover";
 import Post from "./pages/user/post/Post";
 import Profile from "./pages/user/profile/Profile";
-// import Loading from './pages/Loading.jsx'
+
 const App = () => {
   const location = useLocation();
 
@@ -24,7 +24,7 @@ const App = () => {
     "/profile",
     "/posts",
     "/discover",
-    "/admindash",
+    "/admin",
     "/admin/users",
     "/admin/destination",
     "/admin/trip",

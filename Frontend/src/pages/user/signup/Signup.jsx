@@ -159,7 +159,7 @@ const Signup = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Fix: Stop execution if validation fails
+  
     if (!validateForm(true)) {
       return;
     }
