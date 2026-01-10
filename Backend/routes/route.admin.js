@@ -9,10 +9,11 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, "../.env") });
 const NGROK = process.env.NG_ROK_URL 
 admindash.get(`/admin`, async (req, res) => {
+    const token = req.headers.authorization
   try {
     const response = await axios.get(`${NGROK}/api/admin/stats`, {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: token,
         "ngrok-skip-browser-warning": "true",
       },
     });

@@ -97,14 +97,14 @@ const Signup = () => {
   const validateForm = (isLogin) => {
     const newErrors = {};
 
-    const emailRegex = /^[^\s@]+@(?:gmail)\.com$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     if (isLogin) {
       // LOGIN VALIDATION
       if (!loginEmail.trim()) {
         newErrors.email = "Email cannot be empty.";
       } else if (!emailRegex.test(loginEmail)) {
-        newErrors.email = "Invalid Email format (must be @gmail.com).";
+        newErrors.email = "Invalid Email format ";
       }
 
       if (!loginPassword.trim()) {
@@ -133,46 +133,45 @@ const Signup = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const notifyLogin = () =>
-    toast.success("Successfully Logged In!", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+  // const notifyLogin = () =>
+  //   toast.success("Successfully Logged In!", {
+  //     position: "top-right",
+  //     autoClose: 2000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //   });
 
-  const notifySignup = () =>
-    toast.success("Successfully signed up!", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+  // const notifySignup = () =>
+  //   toast.success("Successfully signed up!", {
+  //     position: "top-right",
+  //     autoClose: 2000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //   });
 
   // handleLogin
   const handleLogin = async (e) => {
     e.preventDefault();
 
-  
     if (!validateForm(true)) {
       return;
     }
 
     try {
       // sending request
-      const res = await fetch(`${API_URI}/login`, {
+      const res = await fetch(`${API_URI}/auth`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          email: loginEmail,
+          emailOrUsername: loginEmail,
           password: loginPassword,
         }),
       });
@@ -186,12 +185,15 @@ const Signup = () => {
 
       // Success path
       const data = await res.json();
-      toast.success(data.message || "Logged-in Successfully!");
+      if (data.accessToken) {
+        localStorage.setItem("accessToken", data.accessToken);
+        console.log("token stored successfully");
+      }
+      toast.success("Logged-in Successfully!");
 
-      setTimeout(() => {
-        notifyLogin();
-        navigate("/userdash");
-      }, 2000);
+      if (data.role === "admin") navigate("/admin");
+
+      if (data.role === "user") navigate("/userdash");
     } catch (error) {
       console.error("Login Error:", error.message);
       toast.error(
@@ -228,22 +230,20 @@ const Signup = () => {
 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(
-          errorData.message || `Sign-up failed with status`
-        );
+        throw new Error(errorData.message || `Sign-up failed with status`);
       }
-
+      
       const data = await res.json();
       toast.success(data.message || "Signed-up Successfully! Redirecting...");
 
       setTimeout(() => {
-        notifySignup();
+        // notifySignup();
         navigate("/admindash");
       }, 2000);
     } catch (error) {
-      console.error("Signup Error:", error.message);
+      console.error("Signup Error",error);
       toast.error(
-        error.message ||
+      
           "Sign-up failed due to a network error. Please try again.",
         {
           style: { backgroundColor: "rgb(239, 68, 68)", color: "white" },
@@ -313,7 +313,7 @@ const Signup = () => {
                       type="button"
                       onClick={() => setShowPass(!showPass)}
                     >
-                      {showPass ? <FaEyeSlash/> : <FaEye/>}
+                      {showPass ? <FaEyeSlash /> : <FaEye />}
                     </button>
                   }
                 />
@@ -406,7 +406,7 @@ const Signup = () => {
                       type="button"
                       onClick={() => setShowPass(!showPass)}
                     >
-                      {showPass ? <FaEyeSlash/> : <FaEye/>}
+                      {showPass ? <FaEyeSlash /> : <FaEye />}
                     </button>
                   }
                 />

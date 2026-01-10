@@ -14,10 +14,9 @@ const Panel = ({ title, children, className = "" }) => (
 );
 
 const AdminDash = () => {
-  const [users, setUsers] = useState({activeUsers: 0 });
+  const [users, setUsers] = useState({ activeUsers: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Activity data structured for the top cards
   const activity = [
     {
       id: 1,
@@ -29,15 +28,27 @@ const AdminDash = () => {
     { id: 3, name: "Bookings linked", numbers: "222", percent: "-1.9%" },
     { id: 4, name: "Reports & flags", numbers: "222", percent: "-0.4%" },
     { id: 5, name: "System Quota", numbers: "92%", percent: "used" },
-    { id: 6, name: "Pending Flag", numbers: users.pendingFlags, percent: "used" },
-  ];  
+    {
+      id: 6,
+      name: "Pending Flag",
+      numbers: users.pendingFlags,
+      percent: "used",
+    },
+  ];
 
   useEffect(() => {
     const fetchUsers = async () => {
+      const token = localStorage.getItem("accessToken");
+
+      if (!token) {
+      console.error("No token found, redirecting to login...");
+      setIsLoading(false);
+      return; 
+    } 
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URI}/admin`, {
           headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_JWT_TOKEN}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         const data = await res.json();
