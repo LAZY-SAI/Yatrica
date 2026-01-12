@@ -28,13 +28,18 @@ const AiLayout = ({ children, title,HeaderTitle, subtitle,currentStep = 1 }) => 
     }
     return nextStep;
   };
+  if(showLoading){
+    return(
+      <Loading onComplete={(data)=>{
+        navigate("/AiPlan/Final",{state:{plan:data}})
+      }}
+      />
+    )
+  }
 
   return (
 
    <>
-     {showLoading && <Loading onComplete={(data)=>{
-       navigate("/AiPlan/Final", {state:  {plan:data}})
-     }}/>}
 
      <div className="min-h-screen text-white p-6">
        {/* 1. Top Header */}

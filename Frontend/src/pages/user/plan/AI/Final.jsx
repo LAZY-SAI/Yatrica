@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {  Clock, CheckCircle2 } from "lucide-react"; // Icons for better UI
+import {  Clock, CheckCircle2 } from "lucide-react"; 
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -33,13 +33,14 @@ const Final = () => {
     <div className="min-h-screen  text-white p-6">
       <header className="flex items-center rounded-full">
         <button
-          className={"p-3 hover:bg-gray-600 rounded-full transition-colors"}
+         onClick={() => navigate("/Plan")}
+          className={"p-3 hover:bg-gray-600 rounded-full ml-12 transition-colors"}
         >
           <FaArrowLeft
-            className={"hover:bg-gray-700"}
-            onClick={() => navigate("/Plan")}
+            className={" font-bold text-2xl"}
+           
           />
-        </button>{" "}
+        </button>
       </header>
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* 1. Main Itinerary Column */}

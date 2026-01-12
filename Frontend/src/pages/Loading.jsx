@@ -42,7 +42,7 @@ const Loading = ({onComplete}) => {
         fetchData();
 
         return () => clearInterval(statusInterval);
-    }, [navigate]);
+    }, []);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-6 text-white">

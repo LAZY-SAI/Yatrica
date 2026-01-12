@@ -19,7 +19,7 @@ const Model = ({ isOpen, onClose, children, title }) => {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg p-6 mx-4 bg-gray-700 rounded-xl shadow-2xl animate-fade-in-up"
+        className="relative w-[50rem] p-6 mx-4 bg-gray-700 rounded-xl shadow-2xl animate-fade-in-up"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6 border-b pb-2">

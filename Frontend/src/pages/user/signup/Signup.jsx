@@ -159,50 +159,47 @@ const Signup = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!validateForm(true)) {
-      return;
-    }
+    if (!validateForm(true)) return;
 
     try {
-      // sending request
       const res = await fetch(`${API_URI}/auth`, {
         method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({
           emailOrUsername: loginEmail,
           password: loginPassword,
         }),
       });
 
+      const data = await res.json();
+      console.log(data);
       if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(
-          errorData.message || `Login failed with status: ${res.status}`
-        );
+        console.error(data.message)
       }
 
-      // Success path
-      const data = await res.json();
+      //  Store the token
       if (data.accessToken) {
         localStorage.setItem("accessToken", data.accessToken);
-        console.log("token stored successfully");
       }
-      toast.success("Logged-in Successfully!");
 
-      if (data.role === "admin") navigate("/admin");
+      if (data.user.role === "ADMIN") {
+        toast.success(`Welcome Back, ${data.firstName || "Admin"}!`);
+        setTimeout(() => {
+          navigate("/admin");
+        }, 2000);
+      } else if (data.user.role === "USER") {
+        toast.success(`Welcome Back, ${data.firstName || "User"}!`);
 
-      if (data.role === "user") navigate("/userdash");
+        setTimeout(() => {
+          navigate("/userdash");
+        }, 2000);
+      } else {
+        toast.warn(" unknown user");
+      }
     } catch (error) {
-      console.error("Login Error:", error.message);
-      toast.error(
-        error.message ||
-          "Login failed due to a network error. Please try again.",
-        {
-          style: { backgroundColor: "rgb(239, 68, 68)", color: "white" },
-        }
-      );
+      
+     toast.error('please use correct credentials')
+     console.error(error)
     }
   };
 
@@ -232,7 +229,7 @@ const Signup = () => {
         const errorData = await res.json();
         throw new Error(errorData.message || `Sign-up failed with status`);
       }
-      
+
       const data = await res.json();
       toast.success(data.message || "Signed-up Successfully! Redirecting...");
 
@@ -241,14 +238,10 @@ const Signup = () => {
         navigate("/admindash");
       }, 2000);
     } catch (error) {
-      console.error("Signup Error",error);
-      toast.error(
-      
-          "Sign-up failed due to a network error. Please try again.",
-        {
-          style: { backgroundColor: "rgb(239, 68, 68)", color: "white" },
-        }
-      );
+      console.error("Signup Error", error);
+      toast.error("Sign-up failed due to a network error. Please try again.", {
+        style: { backgroundColor: "rgb(239, 68, 68)", color: "white" },
+      });
     }
   };
 

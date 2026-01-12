@@ -70,7 +70,7 @@ const Plan = () => {
       {/* Header */}
       <header className="flex flex-row w-full items-center px-4 py-3 border-b border-gray-700/50">
         <button
-          className="text-xl p-2 rounded-full hover:bg-[#192c3b89] transition-colors"
+          className="text-xl p-3 ml-12 rounded-full hover:bg-[#192c3b89] transition-colors"
           onClick={() => navigate("/userdash")}
         >
           <FaArrowLeft />
