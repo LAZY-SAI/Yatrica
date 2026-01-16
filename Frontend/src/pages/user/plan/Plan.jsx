@@ -6,114 +6,152 @@ import {
   FaCalendarAlt,
   FaUsers,
   FaDollarSign,
+  FaMagic,
 } from "react-icons/fa";
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Standardized Styled Input
 const QuickStartInput = ({ placeholder, icon: Icon, type = "text" }) => (
-  <div className="relative flex items-center bg-[#283E51] rounded-lg h-12 px-3 focus-within:ring-2 focus-within:ring-emerald-400 transition-all duration-200">
-    <Icon className="text-gray-400 mr-3 text-lg" />
-    <input
-      type={type}
-      placeholder={placeholder}
-      className="border-none h-full w-full bg-transparent text-white placeholder-gray-400 focus:outline-none"
-    />
+  <div className="flex flex-col gap-1.5 w-full">
+    <label className="text-[10px] font-bold uppercase text-gray-500 ml-1 tracking-widest">
+      {placeholder}
+    </label>
+    <div className="relative flex items-center bg-gray-900/50 border border-gray-700/50 rounded-xl h-12 px-4 focus-within:ring-1 focus-within:ring-emerald-500 focus-within:border-emerald-500 transition-all duration-300 group">
+      <Icon className="text-gray-500 mr-3 text-lg group-focus-within:text-emerald-400 transition-colors" />
+      <input
+        type={type}
+        placeholder={`Enter ${placeholder.toLowerCase()}...`}
+        className="bg-transparent w-full text-white text-sm placeholder-gray-600 focus:outline-none"
+      />
+    </div>
   </div>
 );
 
 const Plan = () => {
   const [planOptions, setPlanOptions] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const ICONS = {
-    map: <FaMapMarkedAlt className="text-3xl text-white" />,
-    brain: <FaBrain className="text-3xl text-white" />,
-    suitcase: <FaSuitcaseRolling className="text-3xl text-white" />,
+    map: <FaMapMarkedAlt />,
+    brain: <FaBrain />,
+    suitcase: <FaSuitcaseRolling />,
   };
-
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const mockData = [
       {
         id: 1,
-        name: "Create Trip",
+        name: "Manual Itinerary",
         icon: "map",
-        description: "Set destination, dates, travelers & budget manually",
+        description: "Set destination, dates, and budget step-by-step.",
         Link: "/plan/create",
+        isFeatured: false,
       },
       {
         id: 2,
-        name: "Plan with AI",
+        name: "AI Travel Genius",
         icon: "brain",
-        description:"Tell us the vibe and constraints; get a tailored itinerary",
-          Link:"/AiPlan"
+        description: "Vibe-based planning. Just describe your dream trip.",
+        Link: "/AiPlan",
+        isFeatured: true,
       },
       {
         id: 3,
-        name: "View Tour Packages",
+        name: "Curated Packages",
         icon: "suitcase",
-        description: "Browse curated trips from trusted partners",
-        Link:'/plan/packages'
+        description: "Hand-picked tours from our trusted local partners.",
+        Link: "/plan/packages",
+        isFeatured: false,
       },
     ];
 
     setTimeout(() => {
       setPlanOptions(mockData);
       setIsLoading(false);
-    }, 500);
+    }, 400);
   }, []);
 
   return (
-    <div className="flex flex-col gap-8 py-2 text-white min-h-screen">
+    <div className="min-h-screen bg-[#0B1120] text-gray-100 selection:bg-emerald-500/30">
       {/* Header */}
-      <header className="flex flex-row w-full items-center px-4 py-3 border-b border-gray-700/50">
-        <button
-          className="text-xl p-3 ml-12 rounded-full hover:bg-[#192c3b89] transition-colors"
-          onClick={() => navigate("/userdash")}
-        >
-          <FaArrowLeft />
-        </button>
+      <header className="sticky top-0 z-50 bg-[#0B1120]/80 backdrop-blur-md border-b border-gray-800/50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-6">
+            <button
+              className="p-2.5 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 hover:text-white hover:border-emerald-500 transition-all active:scale-95"
+              onClick={() => navigate("/userdash")}
+            >
+              <FaArrowLeft className="text-sm" />
+            </button>
+            <div>
+                <h1 className="text-lg font-black tracking-tight text-white uppercase">Planner</h1>
+                <p className="text-[10px] text-emerald-500 font-bold tracking-widest uppercase">Travel Studio</p>
+            </div>
+          </div>
 
-        <span onClick={()=>navigate('/plan/myplan') }
-        className="font-semibold text-xl ml-auto mr-4 p-1 rounded-xl hover:bg-gray-700">My Plans</span>
-
-        {/* Profile Icon */}
-        <div className="w-8 h-8 rounded-full bg-gray-600 cursor-pointer border-2 border-emerald-400 flex-shrink-0"></div>
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => navigate('/plan/myplan')}
+              className="text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-emerald-400 transition-colors mr-4"
+            >
+              My Plans
+            </button>
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center cursor-pointer hover:bg-emerald-500/20 transition-all">
+                <div className="w-6 h-6 rounded-lg bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.4)]"></div>
+            </div>
+          </div>
+        </div>
       </header>
 
-      {/* Main Content Area */}
-      <div className="px-4 max-w-7xl mx-auto w-full flex flex-col gap-8">
-        {/* Options Section */}
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-6 py-12 space-y-16">
+        
+        {/* Method Selection Section */}
         <section>
-          <h2 className="font-bold text-2xl mb-2">
-            How would you like to plan?
-          </h2>
-          <p className="text-gray-400 mb-6">
-            Choose an option to begin your perfect journey.
-          </p>
+          <div className="mb-10 text-center lg:text-left">
+            <h2 className="text-3xl font-black text-white mb-2 tracking-tight">How would you like to plan?</h2>
+            <p className="text-gray-500 text-sm max-w-xl">Choose your preferred method of crafting your next adventure. AI-powered or manually curated.</p>
+          </div>
 
-          {/* Grid */}
           {isLoading ? (
-            <div className="text-center text-gray-500 py-10">
-              Loading options...
+            <div className="flex justify-center py-20">
+              <div className="w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
             </div>
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {planOptions.map((option) => (
                 <div
                   key={option.id}
-                  className="relative bg-[#192c3b89] backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-transparent hover:border-emerald-500 cursor-pointer
-                             hover:scale-[1.03] transition-transform duration-300"
-                  onClick={() => option.Link && navigate(option.Link)}
+                  onClick={() => navigate(option.Link)}
+                  className={`group relative p-8 rounded-3xl border transition-all duration-500 cursor-pointer overflow-hidden ${
+                    option.isFeatured 
+                    ? "bg-emerald-500/5 border-emerald-500/30 hover:border-emerald-400 hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.2)]" 
+                    : "bg-gray-900/40 border-gray-800 hover:border-gray-600"
+                  }`}
                 >
-                  <div className="mb-4">{ICONS[option.icon]}</div>
+                  {/* Decorative Gradient for AI */}
+                  {option.isFeatured && (
+                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 blur-3xl rounded-full"></div>
+                  )}
 
-                  <h3 className="text-xl font-semibold mb-1">{option.name}</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${
+                    option.isFeatured ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "bg-gray-800 text-gray-400"
+                  }`}>
+                    {ICONS[option.icon]}
+                  </div>
+
+                  <h3 className="text-xl font-black text-white mb-2">{option.name}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-6">
                     {option.description}
                   </p>
+
+                  <div className={`flex items-center gap-2 text-xs font-black uppercase tracking-widest ${
+                    option.isFeatured ? "text-emerald-400" : "text-gray-400 group-hover:text-white"
+                  }`}>
+                    Select Method <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -121,50 +159,52 @@ const Plan = () => {
         </section>
 
         {/* Quick Start Section */}
-        <section className="bg-[#192c3b89] backdrop-blur-sm w-full rounded-2xl p-6 shadow-xl mb-10 border border-gray-700/50">
-          <h2 className="font-semibold text-2xl mb-1">Quick Start Planning</h2>
-          <span className="text-gray-400 text-sm block mb-6">
-            Fill in the basics to jump right in, or use AI for full creativity.
-          </span>
+        <section className="relative">
+          <div className="bg-gray-900/40 border border-gray-800 rounded-[2.5rem] p-8 lg:p-12 overflow-hidden">
+            {/* Background Accent */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 blur-3xl -z-10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+            
+            <div className="flex flex-col lg:flex-row gap-12 items-start">
+              <div className="lg:w-1/3">
+                <h2 className="text-2xl font-black text-white mb-3 tracking-tight">Quick Start</h2>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Already have the basics in mind? Fill in the core details to initialize your itinerary dashboard immediately.
+                </p>
+                <div className="mt-8 flex items-center gap-4 text-emerald-500 font-bold text-xs uppercase tracking-tighter">
+                    <span className="w-8 h-px bg-emerald-500/30"></span>
+                    Ready to launch
+                </div>
+              </div>
 
-          {/* Inputs Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <QuickStartInput placeholder="Destination" icon={FaMapMarkedAlt} />
-            <QuickStartInput
-              placeholder="Dates"
-              icon={FaCalendarAlt}
-              type="date"
-            />
-            <QuickStartInput
-              placeholder="Travelers"
-              icon={FaUsers}
-              type="number"
-            />
-            <QuickStartInput
-              placeholder="Budget"
-              icon={FaDollarSign}
-              type="number"
-            />
-          </div>
+              <div className="lg:w-2/3 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                  <QuickStartInput placeholder="Destination" icon={FaMapMarkedAlt} />
+                  <QuickStartInput placeholder="Travel Dates" icon={FaCalendarAlt} type="date" />
+                  <QuickStartInput placeholder="Group Size" icon={FaUsers} type="number" />
+                  <QuickStartInput placeholder="Budget Range" icon={FaDollarSign} type="number" />
+                </div>
 
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-3 mt-6">
-            <button
-              className="px-6 py-3 font-semibold text-white text-base rounded-lg transition-colors
-                         bg-emerald-700 hover:bg-emerald-600"
-            >
-              Use AI Instead
-            </button>
-            <button
-              className="px-8 py-3 font-bold text-base rounded-lg transition-colors
-                         bg-emerald-500 hover:bg-emerald-400 text-black"
-              onClick={() => navigate("/plan/create")}
-            >
-              Start Trip
-            </button>
+                <div className="flex flex-col sm:flex-row justify-end gap-4 mt-10">
+                  <button
+                    onClick={() => navigate("/AiPlan")}
+                    className="px-6 py-3 text-xs font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl hover:bg-emerald-500/20 transition-all flex items-center justify-center gap-2"
+                  >
+                    <FaMagic className="animate-pulse" />
+                    Use AI Instead
+                  </button>
+                  <button
+                    onClick={() => navigate("/plan/create")}
+                    className="px-10 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-xl shadow-emerald-900/20 transition-all active:scale-95 flex items-center justify-center"
+                  >
+                    Start Crafting Trip
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
-      </div>
+
+      </main>
     </div>
   );
 };
