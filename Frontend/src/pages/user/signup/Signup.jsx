@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from '../../../routes/Authenticator';
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { FaEye, FaEyeSlash, FaEnvelope, FaLock, FaUser, FaLeaf } from "react-icons/fa";
@@ -30,6 +31,7 @@ const InputField = ({ type, placeholder, value, onChange, icon, name, error, suf
 
 const Signup = () => {
   const navigate = useNavigate();
+  const {login} = useAuth()
   const [isLoginView, setIsLoginView] = useState(true);
   const [showPass, setShowPass] = useState(false);
   const [formData, setFormData] = useState({
@@ -83,6 +85,7 @@ const Signup = () => {
       if (!res.ok) throw new Error(data.message || "Login failed");
       if (data.accessToken) localStorage.setItem("accessToken", data.accessToken);
       toast.success(`Welcome back, ${data.user.username}!`);
+      login(data.user.username, data.token)
       setTimeout(() => navigate(data.user.role === "ADMIN" ? "/admin" : "/userdash"), 1500);
     } catch (err) {
       toast.error(err.message);

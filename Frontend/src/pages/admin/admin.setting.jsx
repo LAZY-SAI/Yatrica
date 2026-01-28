@@ -1,131 +1,129 @@
 import AdminLayout from "./adminLayout";
+import { FaUserShield, FaKey, FaGlobe, FaCamera, FaLock } from "react-icons/fa";
+import Panel from "../../components/admin/Panel";
 
 const Setting = () => {
-
-    const sectionTitleClass = "font-bold text-2xl text-white";
-  
-  const infoLabelClass = "block text-sm font-medium text-gray-400";
-  
-  const infoValueClass = "text-lg font-semibold text-white mt-0.5";
+  const infoLabelClass = "text-[10px] font-black uppercase text-gray-500 mb-1.5 tracking-widest block";
+  const infoValueClass = "text-sm font-bold text-white bg-gray-950/40 p-3 rounded-xl border border-gray-800/50 w-full block group-hover:border-emerald-500/30 transition-all";
 
   return (
-    <AdminLayout header={
-      <header className="flex justify-between items-center pb-4 border-b border-gray-700">
-        <div>
-          <h2 className="text-xl font-bold text-white">
-            Admin Settings
-          </h2>
-          <p className="text-sm text-gray-400">Manage account information and security preferences.</p>
-        </div>
-        <button 
-          className="bg-emerald-700 hover:bg-emerald-600 p-3 rounded-lg text-white font-semibold transition-colors"
-          disabled
-        >
-          Edit
-        </button>
-      </header>
-    }>
-
-      <div className="space-y-10 mt-6">
-        
-        <section className="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
-          <h2 className={sectionTitleClass + " mb-6"}>Profile Information</h2>
-
-          {/* Profile Card / Avatar */}
-          <div className="flex items-center gap-6 pb-6 border-b border-gray-700/50 mb-6">
-            <div className="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-xl font-bold text-gray-300">
-              CC
-            </div>
-            
-            <div className="flex-col mr-auto">
-              <h2 className="font-semibold text-xl text-white">Cup Coffee</h2>
-              <p className="text-gray-400 text-sm">Status: Administrator</p>
-            </div>
-
-            <button className="bg-emerald-600 hover:bg-emerald-500 p-2 px-4 rounded-lg text-white text-sm font-medium transition-colors">
-              Change Picture
-            </button>
+    <AdminLayout
+      header={
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center pb-8 gap-4">
+          <div>
+            <h2 className="text-3xl font-black text-white tracking-tight">System Settings</h2>
+            <p className="text-sm text-gray-500 font-medium">Configure your administrative workspace and security.</p>
           </div>
-
-          {/* User Details Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            
-            {/* Name */}
-            <div>
-              <label className={infoLabelClass}>Full Name</label>
-              <p className={infoValueClass}>Cup Coffee</p>
-            </div>
-
-            {/* Email */}
-            <div>
-              <label className={infoLabelClass}>Email Address</label>
-              <p className={infoValueClass}>Cup@aaa.com</p>
-            </div>
-
-            {/* Role */}
-            <div>
-              <label className={infoLabelClass}>Role</label>
-              <p className={infoValueClass + " text-emerald-400"}>Admin</p>
-            </div>
-            
-            {/* Language */}
-            <div>
-              <label className={infoLabelClass}>Language</label>
-              <p className={infoValueClass}>English (US)</p>
-            </div>
-
-            {/* Placeholder / Future Field */}
-            <div>
-              <label className={infoLabelClass}>Timezone</label>
-              <p className={infoValueClass}>UTC +5:45 (Kathmandu)</p>
-            </div>
-            
-          </div>
-        </section>
-
+          <button 
+            className="group flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 px-8 py-3 rounded-2xl transition-all duration-300 text-white font-bold shadow-xl shadow-emerald-900/40 active:scale-95"
+          >
+            Save All Changes
+          </button>
+        </header>
+      }
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-4">
         
-        {/* 2. SECURITY SECTION */}
-        
-        <section className="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
-          <h2 className={sectionTitleClass}>Security</h2>
-          <p className="text-gray-400 text-sm mb-6">Manage login credentials and security features.</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-12">
-            
-            {/* Password */}
-            <div>
-              <label className={infoLabelClass}>Password</label>
-              <div className="flex items-center mt-0.5">
-                <input 
-                  type="password" 
-                  name="password"
-                  defaultValue="••••••••••••" 
-                  className="bg-transparent border-b border-gray-600 py-1 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition-colors"
-                  disabled
-                />
-                <button className="ml-4 text-emerald-400 hover:text-emerald-300 text-sm font-medium transition-colors" disabled>
-                  Change Password
+        {/* LEFT COLUMN: PROFILE & GENERAL */}
+        <div className="lg:col-span-8 space-y-8">
+          
+          <Panel title="Profile Identity" icon={<FaUserShield className="text-emerald-500" />}>
+            {/* SaaS Avatar Section */}
+            <div className="flex flex-col md:flex-row items-center gap-8 py-4 mb-4">
+              <div className="relative group">
+                <div className="w-24 h-24 rounded-3xl bg-gradient-to-tr from-emerald-500 to-blue-600 flex items-center justify-center text-3xl font-black text-white shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-500">
+                  CC
+                </div>
+                <button className="absolute -bottom-2 -right-2 p-2 bg-gray-900 border border-gray-700 rounded-xl text-emerald-500 hover:text-white hover:bg-emerald-600 transition-all shadow-xl">
+                  <FaCamera size={14} />
                 </button>
+              </div>
+              
+              <div className="text-center md:text-left space-y-1">
+                <h3 className="text-2xl font-black text-white">Cup Coffee</h3>
+                <p className="text-emerald-500 font-bold text-xs uppercase tracking-widest">Master Administrator</p>
+                <p className="text-gray-500 text-sm">Managing since January 2024</p>
               </div>
             </div>
 
-            
-            <div>
-              <label className={infoLabelClass}>Two-Factor Auth (2FA)</label>
-              <p className={infoValueClass}>
-                <span className="text-red-500 font-bold">Disabled</span> 
-                <button className="ml-4 text-emerald-400 hover:text-emerald-300 text-sm font-medium transition-colors" disabled>
-                  Enable 2FA
-                </button>
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-gray-800/50">
+              <div className="group">
+                <label className={infoLabelClass}>Display Name</label>
+                <span className={infoValueClass}>Cup Coffee</span>
+              </div>
+              <div className="group">
+                <label className={infoLabelClass}>Contact Email</label>
+                <span className={infoValueClass}>cup@travelos.com</span>
+              </div>
+              <div className="group">
+                <label className={infoLabelClass}>Regional Locale</label>
+                <div className="flex items-center justify-between p-3 bg-gray-950/40 border border-gray-800/50 rounded-xl">
+                    <span className="text-sm font-bold text-white">English (US)</span>
+                    <FaGlobe className="text-gray-600" />
+                </div>
+              </div>
+              <div className="group">
+                <label className={infoLabelClass}>System Timezone</label>
+                <span className={infoValueClass}>UTC +5:45 (Kathmandu)</span>
+              </div>
             </div>
-            
-          </div>
-        </section>
-        
+          </Panel>
+
+          <Panel title="Login Credentials" icon={<FaKey className="text-emerald-500" />}>
+            <div className="space-y-6">
+               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 bg-gray-950/30 rounded-2xl border border-gray-800/50 group hover:border-emerald-500/20 transition-all">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-gray-900 rounded-xl text-gray-500"><FaLock size={18}/></div>
+                     <div>
+                        <p className="text-white font-bold text-sm">Password</p>
+                        <p className="text-gray-500 text-xs">Last changed 3 months ago</p>
+                     </div>
+                  </div>
+                  <button className="text-xs font-black uppercase tracking-widest text-emerald-500 hover:text-emerald-400">Update Password</button>
+               </div>
+
+               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 bg-gray-950/30 rounded-2xl border border-gray-800/50 group hover:border-emerald-500/20 transition-all">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-gray-900 rounded-xl text-red-500/20 text-red-500"><FaUserShield size={18}/></div>
+                     <div>
+                        <p className="text-white font-bold text-sm">Two-Factor Authentication</p>
+                        <p className="text-red-500 text-[10px] font-black uppercase tracking-tighter">Current Status: Disabled</p>
+                     </div>
+                  </div>
+                  <button className="px-4 py-2 bg-emerald-600/10 hover:bg-emerald-600 text-emerald-500 hover:text-white rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">Enable 2FA</button>
+               </div>
+            </div>
+          </Panel>
+        </div>
+
+        {/* RIGHT COLUMN: DANGER ZONE & STATS */}
+        <div className="lg:col-span-4 space-y-8">
+            <Panel title="Account Status">
+                <div className="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl">
+                    <div className="flex justify-between items-center mb-4">
+                        <span className="text-[10px] font-black uppercase text-emerald-500 tracking-widest">Active Plan</span>
+                        <span className="px-2 py-0.5 bg-emerald-500 text-black text-[10px] font-black rounded">PRO</span>
+                    </div>
+                    <p className="text-white font-bold text-lg">Yatrika Enterprise</p>
+                    <p className="text-gray-500 text-xs mt-1">Renewal Date: Oct 12, 2026</p>
+                </div>
+            </Panel>
+
+            <Panel title="Danger Zone">
+                <div className="space-y-4">
+                    <p className="text-gray-500 text-xs leading-relaxed">
+                        Once you delete your administrative access, there is no going back. Please be certain.
+                    </p>
+                    <button className="w-full py-3 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/20 rounded-xl text-xs font-black uppercase tracking-widest transition-all">
+                        Deactivate Account
+                    </button>
+                </div>
+            </Panel>
+        </div>
+
       </div>
     </AdminLayout>
-  )
-}
+  );
+};
 
 export default Setting;

@@ -4,7 +4,7 @@ import AdUser from '../pages/admin/admin.user';
 import AdDestination from '../pages/admin/admin.destination';
 import AdSetting from '../pages/admin/admin.setting';
 import AdNotify from '../pages/admin/admin.notify';
-
+import AdItinery from "../pages/admin/admin.itinery";
 const AdminRoutes = () => {
     return(
         <Routes>
@@ -16,6 +16,7 @@ const AdminRoutes = () => {
             <Route path="destination" element={<AdDestination/>}/>
             <Route path="setting" element={<AdSetting/>}/>
             <Route path="notify" element={<AdNotify/>}/>
+            <Route path="Itinery" element={<AdItinery/>}/>
         </Routes>
     )
 }

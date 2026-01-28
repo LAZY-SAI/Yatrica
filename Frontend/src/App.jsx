@@ -1,4 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+import { AuthProvider } from "./routes/Authenticator";
+import  ProtectedRoute  from "./routes/ProtectedRoute";
 import Land from "./section/Landing";
 import About from "./section/About";
 import Popular from "./section/Popular";
@@ -6,14 +8,13 @@ import Feature from "./section/Feature";
 import Signup from "./pages/user/signup/Signup";
 import Footer from "./section/Footer";
 import Userdash from "./pages/user/UserDash";
-import UserRoutes from "./routes/UserRoute"; 
+import UserRoutes from "./routes/UserRoute";
 import AdminRoutes from "./routes/AdminRoute";
 import AiRoute from "./routes/AiRoute";
 import Nav from "./components/Nav";
 import Discover from "./pages/user/discover/Discover";
 import Post from "./pages/user/post/Post";
 import Profile from "./pages/user/profile/Profile";
-
 const App = () => {
   const location = useLocation();
 
@@ -30,6 +31,7 @@ const App = () => {
     "/admin/trip",
     "/admin/notify",
     "/admin/setting",
+     "/admin/itinery",
     "/plan/create",
     "/plan/set",
     "/plan/preview",
@@ -39,9 +41,9 @@ const App = () => {
     "/AiPlan/preference",
     "/AiPlan/Review",
     "/AiPlan/Final",
- 
+   
   ];
-  
+
   const showNavRoutes = [
     "/userdash",
     "/plan",
@@ -54,9 +56,10 @@ const App = () => {
   const shouldShowNav = showNavRoutes.includes(location.pathname);
 
   return (
-    <>
+    <AuthProvider>
       <div className="container mx-auto max-w-8xl">
         <Routes>
+          {/**public routes */}
           <Route
             path="/"
             element={
@@ -69,19 +72,71 @@ const App = () => {
             }
           />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/userdash" element={<Userdash />} />
-          <Route path="/discover" element={<Discover />} />
-          
+
+          {/**protected Routes⬇️ */}
+
+          <Route
+            path="/userdash"
+            element={
+              <ProtectedRoute>
+                <Userdash />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/discover"
+            element={
+              <ProtectedRoute>
+                <Discover />
+              </ProtectedRoute>
+            }
+          />
+
           {/* User planning routes with wildcard */}
-          <Route path="/plan/*" element={<UserRoutes />} />
-          <Route path="/AiPlan/*" element={<AiRoute />} />
-          <Route path="/posts" element={<Post />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/plan/*"
+            element={
+              <ProtectedRoute>
+                <UserRoutes />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/AiPlan/*"
+            element={
+              <ProtectedRoute>
+                <AiRoute />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/posts"
+            element={
+              <ProtectedRoute>
+                <Post />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
 
           {/*Loader*/}
           {/*<Route path={"loading"} element={<Loading/>}/>*/}
           {/* Admin routes with wildcard - all admin routes handled by AdminRoutes */}
-          <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute>
+                <AdminRoutes />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
 
@@ -95,7 +150,7 @@ const App = () => {
       )}
 
       {!shouldHideFooter && <Footer />}
-    </>
+    </AuthProvider>
   );
 };
 
