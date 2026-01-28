@@ -7,11 +7,11 @@ const authRoute = Router()
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, "../.env") });
-const NGROK = process.env.NG_ROK_URL 
+const BACKEND = process.env.BACKEND_URL 
 
 authRoute.post('/auth',async(req,res)=>{
         try{
-            const response = await axios.post(`${NGROK}/api/auth/login`, req.body)
+            const response = await axios.post(`${BACKEND}/api/auth/login`, req.body)
 
             res.status(200).json(response.data)
         }

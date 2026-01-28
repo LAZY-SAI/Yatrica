@@ -7,14 +7,14 @@ const admindash = Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, "../.env") });
-const NGROK = process.env.NG_ROK_URL 
+const BACKEND = process.env.BACKEND_URL 
 admindash.get(`/admin`, async (req, res) => {
     const token = req.headers.authorization
   try {
-    const response = await axios.get(`${NGROK}/api/admin/stats`, {
+    const response = await axios.get(`${BACKEND}/api/admin/stats`, {
       headers: {
         Authorization: token,
-        "ngrok-skip-browser-warning": "true",
+        "BACKEND-skip-browser-warning": "true",
       },
     });
     res.status(200).json(response.data);

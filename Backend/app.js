@@ -13,7 +13,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(helmet());
+app.use(helmet({
+  crossOriginEmbedderPolicy:true,
+  crossOriginResourcePolicy:{ policy: "cross-origin" }
+}));
 
 const corsOptions = {
   origin: "*",

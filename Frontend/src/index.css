@@ -108,6 +108,17 @@ body {
     -moz-appearance: textfield;
   }
 }
+
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+
+.no-scrollbar {
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+}
 .start-right {
           transform: translateX(100%); 
         }

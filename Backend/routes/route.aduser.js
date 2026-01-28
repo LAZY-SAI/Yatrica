@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import axios from 'axios'
 const adUser = Router()
-const NGROK = process.env.NG_ROK_URL
+const BACKEND = process.env.BACKEND_URL
 adUser.post('/admin-users',(req,res)=>{
 
     const {username, description,from} = req.body
@@ -16,7 +16,7 @@ adUser.post('/admin-users',(req,res)=>{
 // adUser.get("/admin-users", async (req, res) => {
 //     try {
 //         const response = await axios.get(
-//             `${NGROK}/api/admin/stats`,
+//             `${BACKEND}/api/admin/stats`,
 //             {
 //                 headers: {
 //                     Authorization: req.headers.authorization

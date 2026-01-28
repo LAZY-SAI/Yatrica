@@ -1,6 +1,7 @@
 import Model from "../Model";
 import { useState, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import imageCompression from 'browser-image-compression';
 import {
   FaCloudUploadAlt,
   FaTimes,
@@ -34,24 +35,37 @@ const Popup = ({ isOpen, onClose, onSave }) => {
     hasGuideServices: false,
     longitude: "",
     latitude: "",
-    images: null,
+    images: null // FIXED: Changed from "" to null
   };
 
   const [formData, setFormData] = useState(initialState);
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 
-  const handleChange = (e) => {
+  const handleChange = async(e) => {
     const { name, value, type, checked, files } = e.target;
 
     if (name === "image") {
       const file = files[0];
       if (file) {
-        if (file.size > 10 * 1024 * 1024) {
-          return toast.error("File size must be less than 10MB");
-        }
-        setFormData((prev) => ({ ...prev, images: file }));
         setPreview(URL.createObjectURL(file));
+
+        const options = {
+          maxSizeMB: 5,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        };
+
+        try {
+          const compressedFile = await imageCompression(file, options);
+          console.log(`Original: ${(file.size / 1024 / 1024).toFixed(2)}MB | Compressed: ${(compressedFile.size / 1024 / 1024).toFixed(2)}MB`);
+          
+          setFormData((prev) => ({ ...prev, images: compressedFile }));
+        } catch (error) {
+          console.error("Compression Error:", error);
+          toast.error("Error processing image, using original.");
+          setFormData((prev) => ({ ...prev, images: file }));
+        }
       }
       return;
     }
@@ -62,7 +76,7 @@ const Popup = ({ isOpen, onClose, onSave }) => {
         setFormData((prev) => ({ ...prev, [name]: "" }));
         return;
       }
-      if (val < 0 || val > 4) return;
+      if (val < 1 || val > 5) return;
     }
 
     setFormData((prev) => ({
@@ -72,7 +86,7 @@ const Popup = ({ isOpen, onClose, onSave }) => {
   };
 
   const removeImage = () => {
-    setFormData((prev) => ({ ...prev, image: null }));
+    setFormData((prev) => ({ ...prev, images: null }));
     setPreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -81,67 +95,78 @@ const Popup = ({ isOpen, onClose, onSave }) => {
     e.preventDefault();
     const token = localStorage.getItem("accessToken");
 
-    const destinationData = { ...formData };
-    delete destinationData.images;
-    destinationData.tags = formData.tags
-      ? formData.tags
-          .split(",")
-          .map((t) => t.trim())
-          .filter((t) => t !== "")
-      : [];
+    console.log("=== FORM SUBMISSION ===");
+    console.log("Form Data:", formData);
+
+    const data = new FormData();
+    
+    // Add image if present
+    if (formData.images) {
+      data.append("image", formData.images);
+      console.log("Image added:", formData.images.name);
+    } else {
+      toast.error("Please upload an image");
+      return;
+    }
+
+    // Add all other fields with proper type conversion
+    Object.keys(formData).forEach((key) => {
+      if (key !== "images") {
+        if (key === "tags") {
+          // Convert tags to array
+          const tagArray = formData.tags
+            ? formData.tags
+                .split(",")
+                .map((t) => t.trim())
+                .filter((t) => t !== "")
+            : [];
+          data.append("tags", JSON.stringify(tagArray));
+        } else if (typeof formData[key] === 'boolean') {
+          // Explicitly send booleans as strings
+          data.append(key, formData[key].toString());
+        } else if (formData[key] !== "" && formData[key] !== null) {
+          // Only append non-empty values
+          data.append(key, formData[key]);
+        }
+      }
+    });
+
+    // Log what we're sending
+    console.log("FormData entries:");
+    for (let pair of data.entries()) {
+      console.log(pair[0], typeof pair[1] === 'object' && pair[1] instanceof File ? 'File' : pair[1]);
+    }
 
     try {
-      const createRes = await fetch(
-        `${import.meta.env.VITE_API_URI}/create/destination`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(destinationData),
-        }
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_URI}/create/destinations`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: data,
+      });
 
-      const createdData = await createRes.json();
-
-      if (!createRes.ok) {
-        toast.error(createdData.error || "Failed to create destination");
-        return;
-      }
-
-      if (formData.images) {
-        const imageForm = new FormData();
-        imageForm.append("Form", formData.images);
-       
-
-        const uploadRes = await fetch(
-          `${import.meta.env.VITE_API_URI}/destinations/uploadfile`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            body: imageForm,
-          }
-        );
-
-        const uploadData = await uploadRes.json();
-
-        if (!uploadRes.ok) {
-          toast.error(uploadData.error || "Image upload failed");
-          return;
+      const result = await res.json();
+      console.log("Response:", result);
+      
+      if (res.ok) {
+        toast.success("Destination created successfully");
+        onSave(result); // Pass the created destination to parent
+        setFormData(initialState); // Reset form
+        setPreview(null);
+        onClose();
+      } else {
+        console.error("Error response:", result);
+        toast.error(result.message || result.details?.message || "Failed to create destination");
+        
+        // Show debug info if available
+        if (result.debug) {
+          console.log("Debug info:", result.debug);
         }
       }
-
-      toast.success("Destination added successfully");
-      onSave(createdData.content);
-      onClose();
-      setPreview(null);
-      setTimeout(() => setFormData(initialState), 500);
     } catch (error) {
-      console.error(error);
-      toast.error("Server error. Please try again.");
+      console.error("Submit error:", error);
+      toast.error("Network error. Please try again.");
     }
   };
 
@@ -169,7 +194,7 @@ const Popup = ({ isOpen, onClose, onSave }) => {
     <Model isOpen={isOpen} onClose={onClose} title="Add New Destination">
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 max-h-[80vh] overflow-y-auto px-4 scrollbar-hide  text-white"
+        className="space-y-6 max-h-[80vh] overflow-y-auto px-4 scrollbar-hide text-white"
       >
         {/* Image Upload Section */}
         <div className="space-y-2">
@@ -208,7 +233,7 @@ const Popup = ({ isOpen, onClose, onSave }) => {
                   Upload Destination Image
                 </p>
                 <p className="text-[10px] text-gray-500 uppercase mt-1">
-                  Recommended: 1200x800px (Max 10MB)
+                  Recommended: 1200x800px (Max 5MB)
                 </p>
               </div>
             )}
@@ -370,9 +395,10 @@ const Popup = ({ isOpen, onClose, onSave }) => {
             </div>
 
             <div>
-              <label className={labelClass}>longitude *</label>
+              <label className={labelClass}>Longitude *</label>
               <input
                 type="number"
+                step="any"
                 name="longitude"
                 placeholder="-180 to 180"
                 value={formData.longitude}
@@ -383,9 +409,10 @@ const Popup = ({ isOpen, onClose, onSave }) => {
             </div>
 
             <div>
-              <label className={labelClass}>latitude *</label>
+              <label className={labelClass}>Latitude *</label>
               <input
                 type="number"
+                step="any"
                 name="latitude"
                 placeholder="-90 to 90"
                 value={formData.latitude}
@@ -400,7 +427,7 @@ const Popup = ({ isOpen, onClose, onSave }) => {
         {/* Logistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className={labelClass}>Duration (Hrs) *</label>
+            <label className={labelClass}>Duration (Hrs)</label>
             <input
               type="number"
               name="averageDurationHours"
@@ -430,12 +457,12 @@ const Popup = ({ isOpen, onClose, onSave }) => {
             />
           </div>
           <div>
-            <label className={labelClass}>Safety (0-4)</label>
+            <label className={labelClass}>Safety (1-5)</label>
             <input
               type="number"
               name="safetyLevel"
-              min="0"
-              max="4"
+              min="1"
+              max="5"
               value={formData.safetyLevel}
               onChange={handleChange}
               className={inputClass}
@@ -469,6 +496,19 @@ const Popup = ({ isOpen, onClose, onSave }) => {
             label="Drinking Water"
             name="hasDrinkingWater"
             checked={formData.hasDrinkingWater}
+          />
+        </div>
+
+        {/* Tags */}
+        <div>
+          <label className={labelClass}>Tags (comma-separated)</label>
+          <input
+            type="text"
+            name="tags"
+            value={formData.tags}
+            onChange={handleChange}
+            placeholder="e.g. trekking, scenic, mountain"
+            className={inputClass}
           />
         </div>
 

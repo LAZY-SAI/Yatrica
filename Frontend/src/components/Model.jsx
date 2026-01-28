@@ -1,18 +1,22 @@
 import { useEffect } from "react";
 
 const Model = ({ isOpen, onClose, children, title }) => {
-  if (!isOpen) {
-    return null;
-  }
-
+ 
+ 
+  
   useEffect(() => {
+   
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [onClose]);
+    
+  });
 
+   if (!isOpen) {
+    return;
+  }
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
